@@ -1,16 +1,19 @@
 import logging
 from typing import Dict
 
-from .uniqueid import get_uniqueid
+from .uniqueid import unique_ids
 
 logger = logging.getLogger(__name__)
 
 
 class AWSUniqueId:
-    def get_console_link(self,service: str, resourceType: str, resourceName: str) -> str:
-        logger.info(f"Start Process for AWS Resource: {resourceName}")
+    def get_unique_id(
+        self, service: str, resourceType: str, resourceName: str,
+        accountId: str = None, region: str = None, partition: str = 'aws',
+    ) -> str:
 
-        uniqueIds = get_uniqueid
+        uniqueIds: Dict = unique_ids
+
         if not uniqueIds.get(service, None):
             logger.error(f"AWS service {service} unknown")
             raise ValueError(f"AWS service {service} unknown")
@@ -18,6 +21,18 @@ class AWSUniqueId:
         elif not uniqueIds.get(service, {}).get(resourceType, None):
             logger.error(f"AWS service {service} resource type {resourceType} not supported")
             raise ValueError(f"AWS service {service} resource type {resourceType} not supported")
+
+        elif 'accountId' in uniqueIds[service][resourceType] and not accountId:
+            logger.error("AWS accountId required")
+            raise ValueError("Invalid parameters provided, AWS accountId required")
+
+        elif 'region' in uniqueIds[service][resourceType] and not region:
+            logger.error("AWS region required")
+            raise ValueError("Invalid parameters provided, AWS region required")
+
+        elif resourceName.replace(" ", "") == "" or not resourceName:
+            logger.error("AWS resourceName required")
+            raise ValueError("Invalid parameters provided, AWS resourceName required")
 
         else:
             return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
