@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class AWSUniqueId:
     def get_unique_id(
-        self, service: str, resourceType: str, resourceName: str,
+        self, service: str, resourceType: str, resource: str, parent: str = None,
         accountId: str = None, region: str = None, partition: str = 'aws',
     ) -> str:
 
@@ -30,9 +30,13 @@ class AWSUniqueId:
             logger.error("AWS region required")
             raise ValueError("Invalid parameters provided, AWS region required")
 
-        elif resourceName.replace(" ", "") == "" or not resourceName:
-            logger.error("AWS resourceName required")
-            raise ValueError("Invalid parameters provided, AWS resourceName required")
+        elif 'parent' in uniqueIds[service][resourceType] and not parent:
+            logger.error("AWS parent required")
+            raise ValueError("Invalid parameters provided, AWS parent required")
+
+        elif resource.replace(" ", "") == "" or not resource:
+            logger.error("AWS resource required")
+            raise ValueError("Invalid parameters provided, AWS resource required")
 
         else:
             return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
