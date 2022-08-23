@@ -281,10 +281,14 @@ unique_ids: Dict = {
         "launch-template": 'arn:{partition}:ec2:{region}:{accountId}:launch-template/{resource}',
         "local-gateway": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway/{resource}',
         "local-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-route-table/{resource}',
-        "local-gateway-route-table-virtual-interface-group-association": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-route-table-virtual-interface-group-association/{resource}',
-        "local-gateway-route-table-vpc-association": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-route-table-vpc-association/{resource}',
-        "local-gateway-virtual-interface": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-virtual-interface/{resource}',
-        "local-gateway-virtual-interface-group": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-virtual-interface-group/{resource}',
+        "local-gateway-route-table-virtual-interface-group-association": 'arn:{partition}:ec2:{region}:{accountId}:\
+            local-gateway-route-table-virtual-interface-group-association/{resource}',
+        "local-gateway-route-table-vpc-association": 'arn:{partition}:ec2:{region}:{accountId}:\
+            local-gateway-route-table-vpc-association/{resource}',
+        "local-gateway-virtual-interface": 'arn:{partition}:ec2:{region}:{accountId}:\
+            local-gateway-virtual-interface/{resource}',
+        "local-gateway-virtual-interface-group": 'arn:{partition}:ec2:{region}:{accountId}:\
+            local-gateway-virtual-interface-group/{resource}',
         "network-acl": 'arn:{partition}:ec2:{region}:{accountId}:network-acl/{resource}',
         "network-interface": 'arn:{partition}:ec2:{region}:{accountId}:network-interface/{resource}',
         "placement-group": 'arn:{partition}:ec2:{region}:{accountId}:placement-group/{resource}',
@@ -300,8 +304,10 @@ unique_ids: Dict = {
         "traffic-mirror-target": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-target/{resource}',
         "transit-gateway": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway/{resource}',
         "transit-gateway-attachment": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway-attachment/{resource}',
-        "transit-gateway-multicast-domain": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway-multicast-domain/{resource}',
-        "transit-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway-route-table/{resource}',
+        "transit-gateway-multicast-domain": 'arn:{partition}:ec2:{region}:{accountId}:\
+            transit-gateway-multicast-domain/{resource}',
+        "transit-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:\
+            transit-gateway-route-table/{resource}',
         "volume": 'arn:{partition}:ec2:{region}:{accountId}:volume/{resource}',
         "vpc": 'arn:{partition}:ec2:{region}:{accountId}:vpc/{resource}',
         "vpc-endpoint": 'arn:{partition}:ec2:{region}:{accountId}:vpc-endpoint/{resource}',
@@ -543,7 +549,7 @@ unique_ids: Dict = {
         "alias": 'arn:{partition}:lambda:{region}:{accountId}:function:{parent}:{resource}',
         "version": 'arn:{partition}:lambda:{region}:{accountId}:function:{parent}:{resource}',
         "layer": 'arn:{partition}:lambda:{region}:{accountId}:layer:{resource}',
-        "layer-version": 'arn:{partition}:lambda:{region}:{accountId}:layer:{parent}:{resource}'
+        "layer-version": 'arn:{partition}:lambda:{region}:{accountId}:layer:{parent}:{resource}',
     },
     "lex": {  # Amazon Lex
         "bot": None,

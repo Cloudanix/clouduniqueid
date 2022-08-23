@@ -13,7 +13,7 @@ def test_aws_ec2_instance():
 
     out_id = aws.get_unique_id(
         resource=resource, service=service, region=region,
-        accountId=accountId, resourceType=resourceType
+        accountId=accountId, resourceType=resourceType,
     )
 
     assert out_id == expected_id.replace(" ", "")
@@ -26,7 +26,7 @@ def test_aws_s3_bucket():
     expected_id = "arn:aws:s3:::b12345"
 
     out_id = aws.get_unique_id(
-        resource=resource, service=service, resourceType=resourceType
+        resource=resource, service=service, resourceType=resourceType,
     )
 
     assert out_id == expected_id.replace(" ", "")
@@ -40,7 +40,7 @@ def test_aws_lambda_function():
 
     out_id = aws.get_unique_id(
         resource=resource, service=service, region=region,
-        accountId=accountId, resourceType=resourceType
+        accountId=accountId, resourceType=resourceType,
     )
 
     assert out_id == expected_id.replace(" ", "")
@@ -55,7 +55,7 @@ def test_aws_lambda_function_alias():
 
     out_id = aws.get_unique_id(
         resource=resource, service=service, region=region,
-        parent=parent, accountId=accountId, resourceType=resourceType
+        parent=parent, accountId=accountId, resourceType=resourceType,
     )
 
     assert out_id == expected_id.replace(" ", "")
