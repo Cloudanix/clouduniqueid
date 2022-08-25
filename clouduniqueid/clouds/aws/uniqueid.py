@@ -27,9 +27,11 @@ unique_ids: Dict = {
         "apps": None,
     },
     "apigateway": {  # Manage Amazon API Gateway
-        "rest-api": 'arn:{partition}:apigateway:{region}::/restapis/{resource}',
-        "resource": 'arn:{partition}:apigateway:{region}::/restapis/{parent}/resources/{resource}',
-        "stage": 'arn:{partition}:apigateway:{region}::/restapis/{parent}/stages/{resource}',
+        "rest-api": 'arn:{partition}:apigateway:{region}::/restapis/{data["id".lower()]}',
+        "resource": 'arn:{partition}:apigateway:{region}::/restapis/{data["RestApiId".lower()]}/\
+            resource/{data["id".lower()]}',
+        "stage": 'arn:{partition}:apigateway:{region}::/restapis/{data["RestApiId".lower()]}/\
+            stages/{data["StageName".lower()]}',
     },
     "appconfig": {  # AWS AppConfig
         "application": None,
@@ -64,10 +66,10 @@ unique_ids: Dict = {
         "workgroup": None,
     },
     "autoscaling": {  # Amazon EC2 Auto Scaling
-        "autoScalingGroup": 'arn:{partition}:autoscaling:{region}:{accountId}:autoScalingGroup:{groupId}:\
-            autoScalingGroupName/{resource}',
+        "autoScalingGroup": 'arn:{partition}:autoscaling:{region}:{accountId}:autoScalingGroup:\
+            {data["groupId".lower()]}:autoScalingGroupName/{data["autoScalingGroupName".lower()]}',
         "launchConfiguration": 'arn:{partition}:autoscaling:{region}:{accountId}:launchConfiguration:\
-            {launchConfigurationId}:launchConfigurationName/{resource}',
+            {data["launchConfigurationId".lower()]}:launchConfigurationName/{data["launchConfigurationName".lower()]}',
     },
     "aws-marketplace": {  # AWS Marketplace Catalog
     },
@@ -119,7 +121,7 @@ unique_ids: Dict = {
         "domain": None,
     },
     "cloudtrail": {  # AWS CloudTrail
-        "trail": 'arn:{partition}:cloudtrail:{region}:{accountId}:trail/{resource}',
+        "trail": 'arn:{partition}:cloudtrail:{region}:{accountId}:trail/{data["Name".lower()]}',
     },
     "cloudwatch": {  # Amazon CloudWatch
         "alarm": None,
@@ -267,77 +269,102 @@ unique_ids: Dict = {
         "directory": None,
     },
     "dynamodb": {  # Amazon DynamoDB
-        "global-table": 'arn:{partition}:dynamodb::{accountId}:global-table/{resource}',
-        "table": 'arn:{partition}:dynamodb:{region}:{accountId}:table/{resource}',
-        "index": 'arn:{partition}:dynamodb:{region}:{accountId}:table/{parent}/index/{resource}',
+        "global-table": 'arn:{partition}:dynamodb::{accountId}:global-table/{data["GlobalTableName".lower()]}',
+        "table": 'arn:{partition}:dynamodb:{region}:{accountId}:table/{data["TableName".lower()]}',
+        "index": 'arn:{partition}:dynamodb:{region}:{accountId}:table/{data["TableName".lower()]}/\
+            index/{data["IndexName".lower()]}',
     },
     "ec2": {  # AWS Systems Manager
-        "capacity-reservation": 'arn:{partition}:ec2:{region}:{accountId}:capacity-reservation/{resource}',
-        "client-vpn-endpoint": 'arn:{partition}:ec2:{region}:{accountId}:client-vpn-endpoint/{resource}',
-        "customer-gateway": 'arn:{partition}:ec2:{region}:{accountId}:customer-gateway/{resource}',
-        "dedicated-host": 'arn:{partition}:ec2:{region}:{accountId}:dedicated-host/{resource}',
-        "dhcp-options": 'arn:{partition}:ec2:{region}:{accountId}:dhcp-options/{resource}',
-        "elastic-gpu": 'arn:{partition}:ec2:{region}:{accountId}:elastic-gpu/{resource}',
-        "fpga-image": 'arn:{partition}:ec2:{region}::fpga-image/{resource}',
-        "image": 'arn:{partition}:ec2:{region}::image/{resource}',
-        "instance": 'arn:{partition}:ec2:{region}:{accountId}:instance/{resource}',
-        "internet-gateway": 'arn:{partition}:ec2:{region}:{accountId}:internet-gateway/{resource}',
-        "key-pair": 'arn:{partition}:ec2:{region}:{accountId}:key-pair/{resource}',
-        "launch-template": 'arn:{partition}:ec2:{region}:{accountId}:launch-template/{resource}',
-        "local-gateway": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway/{resource}',
-        "local-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-route-table/{resource}',
+        "capacity-reservation": 'arn:{partition}:ec2:{region}:{accountId}:capacity-reservation/\
+            {data["CapacityReservationId".lower()]}',
+        "client-vpn-endpoint": 'arn:{partition}:ec2:{region}:{accountId}:client-vpn-endpoint/\
+            {data["ClientVpnEndpointId".lower()]}',
+        "customer-gateway": 'arn:{partition}:ec2:{region}:{accountId}:customer-gateway/\
+            {data["CustomerGatewayId".lower()]}',
+        "dedicated-host": 'arn:{partition}:ec2:{region}:{accountId}:dedicated-host/{data["DedicatedHostId".lower()]}',
+        "dhcp-options": 'arn:{partition}:ec2:{region}:{accountId}:dhcp-options/{data["DhcpOptionsId".lower()]}',
+        "elastic-gpu": 'arn:{partition}:ec2:{region}:{accountId}:elastic-gpu/{data["ElasticGpuId".lower()]}',
+        "fpga-image": 'arn:{partition}:ec2:{region}::fpga-image/{data["FpgaImageId".lower()]}',
+        "image": 'arn:{partition}:ec2:{region}::image/{data["ImageId".lower()]}',
+        "instance": 'arn:{partition}:ec2:{region}:{accountId}:instance/{data["InstanceId".lower()]}',
+        "internet-gateway": 'arn:{partition}:ec2:{region}:{accountId}:internet-gateway/\
+            {data["InternetGatewayId".lower()]}',
+        "key-pair": 'arn:{partition}:ec2:{region}:{accountId}:key-pair/{data["KeyName".lower()]}',
+        "launch-template": 'arn:{partition}:ec2:{region}:{accountId}:launch-template/\
+            {data["LaunchTemplateId".lower()]}',
+        "local-gateway": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway/{data["LocalGatewayId".lower()]}',
+        "local-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:local-gateway-route-table/\
+            {data["LocalGatewayRoutetableId".lower()]}',
         "local-gateway-route-table-virtual-interface-group-association": 'arn:{partition}:ec2:{region}:{accountId}:\
-            local-gateway-route-table-virtual-interface-group-association/{resource}',
+            local-gateway-route-table-virtual-interface-group-association/\
+                {data["LocalGatewayRouteTableVirtualInterfaceGroupAssociationId".lower()]}',
         "local-gateway-route-table-vpc-association": 'arn:{partition}:ec2:{region}:{accountId}:\
-            local-gateway-route-table-vpc-association/{resource}',
+            local-gateway-route-table-vpc-association/{data["LocalGatewayRouteTableVpcAssociationId".lower()]}',
         "local-gateway-virtual-interface": 'arn:{partition}:ec2:{region}:{accountId}:\
-            local-gateway-virtual-interface/{resource}',
+            local-gateway-virtual-interface/{data["LocalGatewayVirtualInterfaceId".lower()]}',
         "local-gateway-virtual-interface-group": 'arn:{partition}:ec2:{region}:{accountId}:\
-            local-gateway-virtual-interface-group/{resource}',
-        "network-acl": 'arn:{partition}:ec2:{region}:{accountId}:network-acl/{resource}',
-        "network-interface": 'arn:{partition}:ec2:{region}:{accountId}:network-interface/{resource}',
-        "placement-group": 'arn:{partition}:ec2:{region}:{accountId}:placement-group/{resource}',
-        "reserved-instances": 'arn:{partition}:ec2:{region}:{accountId}:reserved-instances/{resource}',
-        "route-table": 'arn:{partition}:ec2:{region}:{accountId}:route-table/{resource}',
-        "security-group": 'arn:{partition}:ec2:{region}:{accountId}:security-group/{resource}',
-        "snapshot": 'arn:{partition}:ec2:{region}::snapshot/{resource}',
-        "spot-instances-request": 'arn:{partition}:ec2:{region}:{accountId}:spot-instances-request/{resource}',
-        "subnet": 'arn:{partition}:ec2:{region}:{accountId}:subnet/{resource}',
-        "traffic-mirror-filter": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-filter/{resource}',
-        "traffic-mirror-filter-rule": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-filter-rule/{resource}',
-        "traffic-mirror-session": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-session/{resource}',
-        "traffic-mirror-target": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-target/{resource}',
-        "transit-gateway": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway/{resource}',
-        "transit-gateway-attachment": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway-attachment/{resource}',
+            local-gateway-virtual-interface-group/{data["LocalGatewayVirtualInterfaceGroupId".lower()]}',
+        "network-acl": 'arn:{partition}:ec2:{region}:{accountId}:network-acl/{data["NaclId".lower()]}',
+        "network-interface": 'arn:{partition}:ec2:{region}:{accountId}:network-interface/\
+            {data["NetworkInterfaceId".lower()]}',
+        "placement-group": 'arn:{partition}:ec2:{region}:{accountId}:placement-group/\
+            {data["PlacementGroupName".lower()]}',
+        "reserved-instances": 'arn:{partition}:ec2:{region}:{accountId}:reserved-instances/\
+            {data["ReservationId".lower()]}',
+        "route-table": 'arn:{partition}:ec2:{region}:{accountId}:route-table/{data["RouteTableId".lower()]}',
+        "security-group": 'arn:{partition}:ec2:{region}:{accountId}:security-group/{data["SecurityGroupId".lower()]}',
+        "snapshot": 'arn:{partition}:ec2:{region}::snapshot/{data["SnapshotId".lower()]}',
+        "spot-instances-request": 'arn:{partition}:ec2:{region}:{accountId}:spot-instances-request/\
+            {data["SpotInstanceRequestId".lower()]}',
+        "subnet": 'arn:{partition}:ec2:{region}:{accountId}:subnet/{data["SubnetId".lower()]}',
+        "traffic-mirror-filter": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-filter/\
+            {data["TrafficMirrorFilterId".lower()]}',
+        "traffic-mirror-filter-rule": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-filter-rule/\
+            {data["TrafficMirrorFilterRuleId".lower()]}',
+        "traffic-mirror-session": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-session/\
+            {data["TrafficMirrorSessionId".lower()]}',
+        "traffic-mirror-target": 'arn:{partition}:ec2:{region}:{accountId}:traffic-mirror-target/\
+            {data["TrafficMirrorTargetId".lower()]}',
+        "transit-gateway": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway/\
+            {data["TransitGatewayId".lower()]}',
+        "transit-gateway-attachment": 'arn:{partition}:ec2:{region}:{accountId}:transit-gateway-attachment/\
+            {data["TransitGatewayAttachmentId".lower()]}',
         "transit-gateway-multicast-domain": 'arn:{partition}:ec2:{region}:{accountId}:\
-            transit-gateway-multicast-domain/{resource}',
+            transit-gateway-multicast-domain/{data["TransitGatewayMulticastDomainId".lower()]}',
         "transit-gateway-route-table": 'arn:{partition}:ec2:{region}:{accountId}:\
-            transit-gateway-route-table/{resource}',
-        "volume": 'arn:{partition}:ec2:{region}:{accountId}:volume/{resource}',
-        "vpc": 'arn:{partition}:ec2:{region}:{accountId}:vpc/{resource}',
-        "vpc-endpoint": 'arn:{partition}:ec2:{region}:{accountId}:vpc-endpoint/{resource}',
-        "vpc-endpoint-service": 'arn:{partition}:ec2:{region}:{accountId}:vpc-endpoint-service/{resource}',
-        "vpc-flow-log": 'arn:{partition}:ec2:{region}:{accountId}:vpc-flow-log/{resource}',
-        "vpc-peering-connection": 'arn:{partition}:ec2:{region}:{accountId}:vpc-peering-connection/{resource}',
-        "vpn-connection": 'arn:{partition}:ec2:{region}:{accountId}:vpn-connection/{resource}',
-        "vpn-gateway": 'arn:{partition}:ec2:{region}:{accountId}:vpn-gateway/{resource}',
-        "elastic-ip": 'arn:{partition}:ec2:{region}:{accountId}:elastic-ip/{resource}',
+            transit-gateway-route-table/{data["TransitGatewayRouteTableId".lower()]}',
+        "volume": 'arn:{partition}:ec2:{region}:{accountId}:volume/{data["VolumeId".lower()]}',
+        "vpc": 'arn:{partition}:ec2:{region}:{accountId}:vpc/{data["VpcId".lower()]}',
+        "vpc-endpoint": 'arn:{partition}:ec2:{region}:{accountId}:vpc-endpoint/{data["VpcEndpointId".lower()]}',
+        "vpc-endpoint-service": 'arn:{partition}:ec2:{region}:{accountId}:vpc-endpoint-service/\
+            {data["VpcEndpointServiceId".lower()]}',
+        "vpc-flow-log": 'arn:{partition}:ec2:{region}:{accountId}:vpc-flow-log/{data["VpcFlowLogId".lower()]}',
+        "vpc-peering-connection": 'arn:{partition}:ec2:{region}:{accountId}:vpc-peering-connection/\
+            {data["VpcPeeringConnectionId".lower()]}',
+        "vpn-connection": 'arn:{partition}:ec2:{region}:{accountId}:vpn-connection/{data["VpnConnectionId".lower()]}',
+        "vpn-gateway": 'arn:{partition}:ec2:{region}:{accountId}:vpn-gateway/{data["VpnGatewayId".lower()]}',
+        "elastic-ip": 'arn:{partition}:ec2:{region}:{accountId}:elastic-ip/{data["AllocationId".lower()]}',
     },
     "ecr": {  # Amazon Elastic Container Registry
-        "repository": 'arn:{partition}:ecr:{region}:{accountId}:repository/{resource}',
-        "image": '{resource}:{imageTag}',
+        "repository": 'arn:{partition}:ecr:{region}:{accountId}:repository/{data["RepositoryName".lower()]}',
+        "image": '{data["repoUri".lower()]}:{data["imageTag".lower()]}',
     },
     "ecs": {  # Amazon Elastic Container Service
-        "cluster": 'arn:{partition}:ecs:{region}:{accountId}:cluster/{resource}',
-        "container-instance": 'arn:{partition}:ecs:{region}:{accountId}:container-instance/{parent}/{resource}',
-        "service": 'arn:{partition}:ecs:{region}:{accountId}:service/{parent}/{resource}',
-        "task": 'arn:{partition}:ecs:{region}:{accountId}:task/{parent}/{resource}',
-        "task-definition": 'arn:{partition}:ecs:{region}:{accountId}:task-definition/{parent}:{resource}',
+        "cluster": 'arn:{partition}:ecs:{region}:{accountId}:cluster/{data["ClusterName".lower()]}',
+        "container-instance": 'arn:{partition}:ecs:{region}:{accountId}:container-instance/\
+            {data["ClusterName".lower()]}/{data["ContainerInstanceId".lower()]}',
+        "service": 'arn:{partition}:ecs:{region}:{accountId}:service/{data["ClusterName".lower()]}/\
+            {data["ServiceName".lower()]}',
+        "task": 'arn:{partition}:ecs:{region}:{accountId}:task/{data["ClusterName".lower()]}/{data["TaskId".lower()]}',
+        "task-definition": 'arn:{partition}:ecs:{region}:{accountId}:task-definition/\
+            {data["TaskDefinitionFamilyName".lower()]}:{data["TaskDefinitionRevisionNumber".lower()]}',
     },
     "eks": {  # Amazon Elastic Container Service for Kubernetes
-        "cluster": 'arn:{partition}:eks:{region}:{accountId}:cluster/{resource}',
-        "fargateprofile": 'arn:{partition}:eks:{region}:{accountId}:fargateprofile/{parent}/{resource}/{UUID}',
-        "nodegroup": 'arn:{partition}:eks:{region}:{accountId}:nodegroup/{parent}/{resource}/{UUID}',
+        "cluster": 'arn:{partition}:eks:{region}:{accountId}:cluster/{data["ClusterName".lower()]}',
+        "fargateprofile": 'arn:{partition}:eks:{region}:{accountId}:fargateprofile/{data["ClusterName".lower()]}/\
+            {data["FargateProfileName".lower()]}/{data["UUID.lower()]}',
+        "nodegroup": 'arn:{partition}:eks:{region}:{accountId}:nodegroup/{data["ClusterName".lower()]}/\
+            {data["NodegroupName".lower()]}/{data["UUID.lower()]}',
     },
     "elastic-inference": {  # Amazon Elastic Inference
         "elastic-inference-accelerator": None,
@@ -356,11 +383,15 @@ unique_ids: Dict = {
     },
     "elasticloadbalancing": {  # AWS WAF V2
         "listener": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:\
-            listener/app/{parent}/{loadBalancerId}/{resource}',
+            listener/app/{data["LoadBalancerName".lower()]}/{data["LoadBalancerId".lower()]}/\
+                {data["ListenerId".lower()]}',
         "listener-rule": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:\
-            listener-rule/net/{parent}/{loadBalancerId}/{listenerId}/{resource}',
-        "loadbalancer": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:loadbalancer/{resource}',
-        "targetgroup": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:targetgroup/{parent}/{resource}',
+            listener-rule/net/{data["LoadBalancerName".lower()]}/{data["LoadBalancerId".lower()]}/\
+                {data["ListenerId".lower()]}/{data["ListenerRuleId".lower()]}',
+        "loadbalancer": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:loadbalancer/\
+            {data["LoadBalancerName".lower()]}',
+        "targetgroup": 'arn:{partition}:elasticloadbalancing:{region}:{accountId}:targetgroup/\
+            {data["TargetGroupName".lower()]}/{data["TargetGroupId".lower()]}',
     },
     "elasticmapreduce": {  # Amazon Elastic MapReduce
         "cluster": None,
@@ -372,7 +403,7 @@ unique_ids: Dict = {
         "preset": None,
     },
     "es": {  # Amazon Elasticsearch Service
-        "domain": 'arn:{partition}:es:{region}:{accountId}:domain/{resource}',
+        "domain": 'arn:{partition}:es:{region}:{accountId}:domain/{data["Name".lower()]}',
     },
     "events": {  # Amazon EventBridge
         "event-bus": None,
@@ -455,19 +486,20 @@ unique_ids: Dict = {
         "screen-automation": None,
     },
     "iam": {  # AWS Security Token Service
-        "access-report": 'arn:{partition}:iam::{accountId}:access-report/{resource}',
-        "assumed-role": 'arn:{partition}:iam::{accountId}:assumed-role/{parent}/{resource}',
-        "federated-user": 'arn:{partition}:iam::{accountId}:federated-user/{resource}',
-        "group": 'arn:{partition}:iam::{accountId}:group/{resource}',
-        "instance-profile": 'arn:{partition}:iam::{accountId}:instance-profile/{resource}',
-        "mfa": 'arn:{partition}:iam::{accountId}:mfa/{resource}',
-        "oidc-provider": 'arn:{partition}:iam::{accountId}:oidc-provider/{resource}',
-        "policy": 'arn:{partition}:iam::{accountId}:policy/{resource}',
-        "role": 'arn:{partition}:iam::{accountId}:role/{resource}',
-        "saml-provider": 'arn:{partition}:iam::{accountId}:saml-provider/{resource}',
-        "server-certificate": 'arn:{partition}:iam::{accountId}:server-certificate/{resource}',
-        "sms-mfa": 'arn:{partition}:iam::{accountId}:sms-mfa/{resource}',
-        "user": 'arn:{partition}:iam::{accountId}:user/{resource}',
+        "access-report": 'arn:{partition}:iam::{accountId}:access-report/{data["EntityPath".lower()]}',
+        "assumed-role": 'arn:{partition}:iam::{accountId}:assumed-role/{data["RoleName".lower()]}/\
+            {data["RoleSessionName".lower()]}',
+        "federated-user": 'arn:{partition}:iam::{accountId}:federated-user/{data["UserName".lower()]}',
+        "group": 'arn:{partition}:iam::{accountId}:group/{data["GroupName".lower()]}',
+        "instance-profile": 'arn:{partition}:iam::{accountId}:instance-profile/{data["InstanceProfileName".lower()]}',
+        "mfa": 'arn:{partition}:iam::{accountId}:mfa/{data["MfaTokenId".lower()]}',
+        "oidc-provider": 'arn:{partition}:iam::{accountId}:oidc-provider/{data["OidcProviderName".lower()]}',
+        "policy": 'arn:{partition}:iam::{accountId}:policy/{data["PolicyName".lower()]}',
+        "role": 'arn:{partition}:iam::{accountId}:role/{data["RoleName".lower()]}',
+        "saml-provider": 'arn:{partition}:iam::{accountId}:saml-provider/{data["SamlProviderName".lower()]}',
+        "server-certificate": 'arn:{partition}:iam::{accountId}:server-certificate/{data["CertificateName".lower()]}',
+        "sms-mfa": 'arn:{partition}:iam::{accountId}:sms-mfa/{data["MfaTokenId".lower()]}',
+        "user": 'arn:{partition}:iam::{accountId}:user/{data["UserName".lower()]}',
     },
     "imagebuilder": {  # Amazon EC2 Image Builder
         "component": None,
@@ -547,17 +579,22 @@ unique_ids: Dict = {
         "stream": None,
     },
     "kms": {  # AWS Key Management Service
-        "alias": 'arn:{partition}:kms:{region}:{accountId}:alias/{resource}',
-        "key": 'arn:{partition}:kms:{region}:{accountId}:key/{resource}',
+        "alias": 'arn:{partition}:kms:{region}:{accountId}:{data["AliasName".lower()]}',
+        "key": 'arn:{partition}:kms:{region}:{accountId}:key/{data["KeyId".lower()]}',
     },
     "lambda": {  # AWS Lambda
-        "event-source-mapping": 'arn:{partition}:lambda:{region}:{accountId}:event-source-mapping:{resource}',
-        "function": 'arn:{partition}:lambda:{region}:{accountId}:function:{resource}',
-        "code-signing-config": 'arn:{partition}:lambda:{region}:{accountId}:code-signing-config:{resource}',
-        "alias": 'arn:{partition}:lambda:{region}:{accountId}:function:{parent}:{resource}',
-        "version": 'arn:{partition}:lambda:{region}:{accountId}:function:{parent}:{resource}',
-        "layer": 'arn:{partition}:lambda:{region}:{accountId}:layer:{resource}',
-        "layer-version": 'arn:{partition}:lambda:{region}:{accountId}:layer:{parent}:{resource}',
+        "event-source-mapping": 'arn:{partition}:lambda:{region}:{accountId}:event-source-mapping:\
+            {data["UUID".lower()]}',
+        "function": 'arn:{partition}:lambda:{region}:{accountId}:function:{data["FunctionName".lower()]}',
+        "code-signing-config": 'arn:{partition}:lambda:{region}:{accountId}:code-signing-config:\
+            {data["CodeSigningConfigId".lower()]}',
+        "alias": 'arn:{partition}:lambda:{region}:{accountId}:function:{data["FunctionName".lower()]}:\
+            {data["Name".lower()]}',
+        "version": 'arn:{partition}:lambda:{region}:{accountId}:function:{data["FunctionName".lower()]}:\
+            {data["Version".lower()]}',
+        "layer": 'arn:{partition}:lambda:{region}:{accountId}:layer:{data["LayerName".lower()]}',
+        "layer-version": 'arn:{partition}:lambda:{region}:{accountId}:layer:{data["LayerName".lower()]}:\
+            {data["Version".lower()]}',
     },
     "lex": {  # Amazon Lex
         "bot": None,
@@ -717,41 +754,56 @@ unique_ids: Dict = {
         "resource-share-invitation": None,
     },
     "rds": {  # Amazon RDS
-        "cluster": 'arn:{partition}:rds:{region}:{accountId}:cluster:{resource}',
-        "cluster-endpoint": 'arn:{partition}:rds:{region}:{accountId}:cluster-endpoint:{resource}',
-        "cluster-pg": 'arn:{partition}:rds:{region}:{accountId}:cluster-pg:{resource}',
-        "cluster-snapshot": 'arn:{partition}:rds:{region}:{accountId}:cluster-snapshot:{resource}',
-        "db": 'arn:{partition}:rds:{region}:{accountId}:db:{resource}',
-        "db-proxy": 'arn:{partition}:rds:{region}:{accountId}:db-proxy:{resource}',
-        "es": 'arn:{partition}:rds:{region}:{accountId}:es:{resource}',
-        "og": 'arn:{partition}:rds:{region}:{accountId}:og:{resource}',
-        "pg": 'arn:{partition}:rds:{region}:{accountId}:pg:{resource}',
-        "ri": 'arn:{partition}:rds:{region}:{accountId}:ri:{resource}',
-        "secgrp": 'arn:{partition}:rds:{region}:{accountId}:secgrp:{resource}',
-        "snapshot": 'arn:{partition}:rds:{region}:{accountId}:snapshot:{resource}',
-        "subgrp": 'arn:{partition}:rds:{region}:{accountId}:subgrp:{resource}',
-        "target": 'arn:{partition}:rds:{region}:{accountId}:target:{resource}',
-        "target-group": 'arn:{partition}:rds:{region}:{accountId}:target-group:{resource}',
+        "cluster": 'arn:{partition}:rds:{region}:{accountId}:cluster:{data["DbClusterInstanceName".lower()]}',
+        "cluster-endpoint": 'arn:{partition}:rds:{region}:{accountId}:cluster-endpoint:\
+            {data["DbClusterEndpoint".lower()]}',
+        "cluster-pg": 'arn:{partition}:rds:{region}:{accountId}:cluster-pg:\
+            {data["ClusterParameterGroupName".lower()]}',
+        "cluster-snapshot": 'arn:{partition}:rds:{region}:{accountId}:\
+            cluster-snapshot:{data["ClusterSnapshotName".lower()]}',
+        "db": 'arn:{partition}:rds:{region}:{accountId}:db:{data["DbInstanceName".lower()]}',
+        "db-proxy": 'arn:{partition}:rds:{region}:{accountId}:db-proxy:{data["DbProxyId".lower()]}',
+        "es": 'arn:{partition}:rds:{region}:{accountId}:es:{data["SubscriptionName".lower()]}',
+        "og": 'arn:{partition}:rds:{region}:{accountId}:og:{data["OptionGroupName".lower()]}',
+        "pg": 'arn:{partition}:rds:{region}:{accountId}:pg:{data["ParameterGroupName".lower()]}',
+        "ri": 'arn:{partition}:rds:{region}:{accountId}:ri:{data["ReservedDbInstanceName".lower()]}',
+        "secgrp": 'arn:{partition}:rds:{region}:{accountId}:secgrp:{data["SecurityGroupName".lower()]}',
+        "snapshot": 'arn:{partition}:rds:{region}:{accountId}:snapshot:{data["SnapshotName".lower()]}',
+        "subgrp": 'arn:{partition}:rds:{region}:{accountId}:subgrp:{data["SubnetGroupName".lower()]}',
+        "target": 'arn:{partition}:rds:{region}:{accountId}:target:{data["TargetId".lower()]}',
+        "target-group": 'arn:{partition}:rds:{region}:{accountId}:target-group:{data["TargetGroupId".lower()]}',
     },
     "rds-db": {  # Amazon RDS IAM Authentication
         "dbuser": None,
     },
     "redshift": {  # Amazon Redshift
-        "cluster": 'arn:{partition}:redshift:{region}:{accountId}:cluster:{resource}',
-        "dbgroup": 'arn:{partition}:redshift:{region}:{accountId}:dbgroup:{parent}/{resource}',
-        "dbname": 'arn:{partition}:redshift:{region}:{accountId}:dbname:{parent}/{resource}',
-        "dbuser": 'arn:{partition}:redshift:{region}:{accountId}:dbuser:{parent}/{resource}',
-        "eventsubscription": 'arn:{partition}:redshift:{region}:{accountId}:eventsubscription:{resource}',
-        "hsmclientcertificate": 'arn:{partition}:redshift:{region}:{accountId}:hsmclientcertificate:{resource}',
-        "hsmconfiguration": 'arn:{partition}:redshift:{region}:{accountId}:hsmconfiguration:{resource}',
-        "parametergroup": 'arn:{partition}:redshift:{region}:{accountId}:parametergroup:{resource}',
-        "securitygroup": 'arn:{partition}:redshift:{region}:{accountId}:securitygroup:{resource}',
+        "cluster": 'arn:{partition}:redshift:{region}:{accountId}:cluster:{data["ClusterName".lower()]}',
+        "dbgroup": 'arn:{partition}:redshift:{region}:{accountId}:dbgroup:{data["ClusterName".lower()]}/\
+            {data["DbGroup".lower()]}',
+        "dbname": 'arn:{partition}:redshift:{region}:{accountId}:dbname:{data["ClusterName".lower()]}/\
+            {data["DbName".lower()]}',
+        "dbuser": 'arn:{partition}:redshift:{region}:{accountId}:dbuser:{data["ClusterName".lower()]}/\
+            {data["DbUser".lower()]}',
+        "eventsubscription": 'arn:{partition}:redshift:{region}:{accountId}:eventsubscription:\
+            {data["EventSubscriptionName".lower()]}',
+        "hsmclientcertificate": 'arn:{partition}:redshift:{region}:{accountId}:hsmclientcertificate:\
+            {data["HSMClientCertificateId".lower()]}',
+        "hsmconfiguration": 'arn:{partition}:redshift:{region}:{accountId}:hsmconfiguration:\
+            {data["HSMConfigurationId".lower()]}',
+        "parametergroup": 'arn:{partition}:redshift:{region}:{accountId}:parametergroup:\
+            {data["ParameterGroupName".lower()]}',
+        "securitygroup": 'arn:{partition}:redshift:{region}:{accountId}:securitygroup:\
+            {data["SecurityGroupName".lower()]}/ec2securitygroup/{data["Owner".lower()]}/\
+                {data["Ec2SecurityGroupId".lower()]}',
         "securitygroupingress": 'arn:{partition}:redshift:{region}:{accountId}:\
-            securitygroupingress:{parent}/cidrip/{resource}',
-        "snapshot": 'arn:{partition}:redshift:{region}:{accountId}:snapshot:{parent}/{resource}',
-        "snapshotcopygrant": 'arn:{partition}:redshift:{region}:{accountId}:snapshotcopygrant:{resource}',
-        "snapshotschedule": 'arn:{partition}:redshift:{region}:{accountId}:snapshotschedule:{resource}',
-        "subnetgroup": 'arn:{partition}:redshift:{region}:{accountId}:subnetgroup:{resource}',
+            securitygroupingress:{data["SecurityGroupName".lower()]}',
+        "snapshot": 'arn:{partition}:redshift:{region}:{accountId}:snapshot:{data["ClusterName".lower()]}/\
+            {data["SnapshotName".lower()]}',
+        "snapshotcopygrant": 'arn:{partition}:redshift:{region}:{accountId}:snapshotcopygrant:\
+            {data["SnapshotCopyGrantName".lower()]}',
+        "snapshotschedule": 'arn:{partition}:redshift:{region}:{accountId}:snapshotschedule:\
+            {data["ParameterGroupName".lower()]}',
+        "subnetgroup": 'arn:{partition}:redshift:{region}:{accountId}:subnetgroup:{data["SubnetGroupName".lower()]}',
     },
     "rekognition": {  # Amazon Rekognition
         "collection": None,
@@ -771,21 +823,21 @@ unique_ids: Dict = {
         "simulation-job-batch": None,
     },
     "route53": {  # Amazon Route 53
-        "change": 'arn:{partition}:route53:::change/{resource}',
-        "delegationset": 'arn:{partition}:route53:::delegationset/{resource}',
-        "healthcheck": 'arn:{partition}:route53:::healthcheck/{resource}',
-        "hostedzone": 'arn:{partition}:route53:::hostedzone/{resource}',
-        "queryloggingconfig": 'arn:{partition}:route53:::queryloggingconfig/{resource}',
-        "trafficpolicy": 'arn:{partition}:route53:::trafficpolicy/{resource}',
-        "trafficpolicyinstance": 'arn:{partition}:route53:::trafficpolicyinstance/{resource}',
-        "dns-record": 'arn:{partition}:route53:::recordset/{resource}',
+        "change": 'arn:{partition}:route53:::change/{data["Id".lower()]}',
+        "delegationset": 'arn:{partition}:route53:::delegationset/{data["Id".lower()]}',
+        "healthcheck": 'arn:{partition}:route53:::healthcheck/{data["Id".lower()]}',
+        "hostedzone": 'arn:{partition}:route53:::hostedzone/{data["Id".lower()]}',
+        "queryloggingconfig": 'arn:{partition}:route53:::queryloggingconfig/{data["Id".lower()]}',
+        "trafficpolicy": 'arn:{partition}:route53:::trafficpolicy/{data["Id".lower()]}',
+        "trafficpolicyinstance": 'arn:{partition}:route53:::trafficpolicyinstance/{data["Id".lower()]}',
+        "dns-record": 'arn:{partition}:route53:::recordset/{data["Id".lower()]}',
     },
     "route53resolver": {  # Amazon Route 53 Resolver
         "resolver-endpoint": None,
         "resolver-rule": None,
     },
     "s3": {  # Amazon S3
-        "bucket": 'arn:{partition}:s3:::{resource}',
+        "bucket": 'arn:{partition}:s3:::{data["bucketName".lower()]}',
         "accesspoint": None,
         "job": None,
     },
