@@ -7,15 +7,15 @@ from .uniqueid import unique_ids
 logger = logging.getLogger(__name__)
 
 
-def check_absent_data_keys(dataKeys: list, uniqueIdFormat: str):
+def check_missing_data_keys(dataKeys: list, uniqueIdFormat: str):
     uniqueIdKeys = re.findall(r'{(.*?)}', uniqueIdFormat)
     dataKeys.extend(['region', 'accountid', 'partition'])
-    absentKeys = []
+    missingKeys = []
     for key in uniqueIdKeys:
         if key.lower() not in dataKeys:
-            absentKeys.append(key)
+            missingKeys.append(key)
 
-    return absentKeys
+    return missingKeys
 
 
 class AWSUniqueId:
@@ -55,10 +55,10 @@ class AWSUniqueId:
         else:
             uniqueIdFormat = uniqueIds[service][resourceType].replace(" ", "").\
                 replace('data["', "").replace('".lower()]', "")
-            absentKeys = check_absent_data_keys(dataKeys, uniqueIdFormat)
-            if len(absentKeys) > 0:
+            missingKeys = check_missing_data_keys(dataKeys, uniqueIdFormat)
+            if len(missingKeys) > 0:
                 errorMsg = ''
-                for key in absentKeys:
+                for key in missingKeys:
                     errorMsg += f" {key},"
 
                 errorMsg = errorMsg[:-1]
