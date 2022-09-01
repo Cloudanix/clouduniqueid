@@ -32,6 +32,7 @@ unique_ids: Dict = {
             resource/{data["id".lower()]}',
         "stage": 'arn:{partition}:apigateway:{region}::/restapis/{data["RestApiId".lower()]}/\
             stages/{data["StageName".lower()]}',
+        "clientcertificates": 'arn:{partition}:apigateway:{region}::/clientcertificates/{data["ClientCertificateId".lower()]}',
     },
     "appconfig": {  # AWS AppConfig
         "application": None,
@@ -104,14 +105,14 @@ unique_ids: Dict = {
         "schema": None,
     },
     "cloudformation": {  # AWS CloudFormation
-        "changeSet": None,
-        "stack": None,
-        "stackset": None,
+        "changeSet": 'arn:{partition}:cloudformation:{region}:{accountId}:changeSet/{data["ChangeSetName".lower()]}/{data["Id".lower()]}',
+        "stack": 'arn:{partition}:cloudformation:{region}:{accountId}:stack/{data["StackName".lower()]}/{data["Id".lower()]}',
+        "stackset": 'arn:{partition}:cloudformation:{region}:{accountId}:stackset/{data["StackSetName".lower()]}:{data["Id".lower()]}',
     },
     "cloudfront": {  # Amazon CloudFront
-        "distribution": None,
-        "origin-access-identity": None,
-        "streaming-distribution": None,
+        "distribution": 'arn:{partition}:cloudfront::{accountId}:distribution/{data["DistributionId".lower()]}',
+        "origin-access-identity": 'arn:{partition}:cloudfront::{accountId}:origin-access-identity/{data["Id".lower()]}',
+        "streaming-distribution": 'arn:{partition}:cloudfront::{accountId}:streaming-distribution/{data["DistributionId".lower()]}',
     },
     "cloudhsm": {  # AWS CloudHSM
         "backup": None,
@@ -124,9 +125,10 @@ unique_ids: Dict = {
         "trail": 'arn:{partition}:cloudtrail:{region}:{accountId}:trail/{data["Name".lower()]}',
     },
     "cloudwatch": {  # Amazon CloudWatch
-        "alarm": None,
-        "dashboard": None,
-        "insight-rule": None,
+        "alarm": 'arn:{partition}:cloudwatch:{region}:{accountId}:alarm:{data["AlarmName".lower()]}',
+        "dashboard": 'arn:{partition}:cloudwatch::{region}:dashboard/{data["DashboardName".lower()]}',
+        "insight-rule": 'arn:{partition}:cloudwatch:{region}:{accountId}:insight-rule/{data["InsightRuleName".lower()]}',
+        "metric": 'arn:{partition}:cloudwatch::{region}:{accountId}:metric/{data["MetricName".lower()]}',
     },
     "codeartifact": {  # AWS CodeArtifact
         "domain": None,
@@ -405,10 +407,14 @@ unique_ids: Dict = {
     "es": {  # Amazon Elasticsearch Service
         "domain": 'arn:{partition}:es:{region}:{accountId}:domain/{data["Name".lower()]}',
     },
+    "elasticache": {  # Amazon Elasticache Service
+        "cluster": 'arn:{partition}:elasticache:{region}:{accountId}:cluster:{data["CacheClusterId".lower()]}',
+        "reserved-instance": 'arn:{partition}:elasticache:{region}:{accountId}:reserved-instance:{data["ReservedCacheNodeId".lower()]}',
+    },
     "events": {  # Amazon EventBridge
-        "event-bus": None,
+        "event-bus": 'arn:{partition}:events:{region}:{accountId}:event-bus/{data["EventBusName".lower()]}',
         "event-source": None,
-        "rule": None,
+        "rule": 'arn:{partition}:events:{region}:{accountId}:rule/{data["RuleName".lower()]}',
     },
     "execute-api": {  # Amazon API Gateway
     },
@@ -500,6 +506,9 @@ unique_ids: Dict = {
         "server-certificate": 'arn:{partition}:iam::{accountId}:server-certificate/{data["CertificateName".lower()]}',
         "sms-mfa": 'arn:{partition}:iam::{accountId}:sms-mfa/{data["MfaTokenId".lower()]}',
         "user": 'arn:{partition}:iam::{accountId}:user/{data["UserName".lower()]}',
+        "user-access-key": '{data["AccessKeyId".lower()]}',
+        "policy-statement": '{data["PolicyId".lower()]}/statement/{data["StatementId".lower()]}',
+        "service-access": 'hashlib.md5((data["PrincipalARN".lower()] + data["ServiceName".lower()]).encode("UTF-8")).hexdigest()',
     },
     "imagebuilder": {  # Amazon EC2 Image Builder
         "component": None,
@@ -622,7 +631,7 @@ unique_ids: Dict = {
         "StaticIp": None,
     },
     "logs": {  # Amazon CloudWatch Logs
-        "log-group": None,
+        "log-group": 'arn:{partition}:logs:{region}:{accountId}:log-group:{data["LogGroupName".lower()]}',
     },
     "machinelearning": {  # Amazon Machine Learning
         "batchprediction": None,
@@ -804,6 +813,7 @@ unique_ids: Dict = {
         "snapshotschedule": 'arn:{partition}:redshift:{region}:{accountId}:snapshotschedule:\
             {data["ParameterGroupName".lower()]}',
         "subnetgroup": 'arn:{partition}:redshift:{region}:{accountId}:subnetgroup:{data["SubnetGroupName".lower()]}',
+        "reserved-node": 'arn:{partition}:redshift:{region}:{accountId}:reserved-node/{data["ReservedNodeId".lower()]}',
     },
     "rekognition": {  # Amazon Rekognition
         "collection": None,
@@ -831,6 +841,7 @@ unique_ids: Dict = {
         "trafficpolicy": 'arn:{partition}:route53:::trafficpolicy/{data["Id".lower()]}',
         "trafficpolicyinstance": 'arn:{partition}:route53:::trafficpolicyinstance/{data["Id".lower()]}',
         "dns-record": 'arn:{partition}:route53:::recordset/{data["Id".lower()]}',
+        "domain": '{data["DomainName".lower()]}',
     },
     "route53resolver": {  # Amazon Route 53 Resolver
         "resolver-endpoint": None,
@@ -838,6 +849,7 @@ unique_ids: Dict = {
     },
     "s3": {  # Amazon S3
         "bucket": 'arn:{partition}:s3:::{data["bucketName".lower()]}',
+        "acl": 'hashlib.sha256(data.encode("utf8")).hexdigest()',
         "accesspoint": None,
         "job": None,
     },
@@ -898,14 +910,14 @@ unique_ids: Dict = {
     "servicequotas": {  # Service Quotas
     },
     "ses": {  # Amazon SES
-        "configuration-set": None,
-        "custom-verification-email-template": None,
+        "configuration-set": 'arn:{partition}:ses:{region}:{accountId}:configuration-set/{data["ConfigurationSetName".lower()]}',
+        "custom-verification-email-template": 'arn:{partition}:ses:{region}:{accountId}:custom-verification-email-template/{data["TemplateName".lower()]}',
         "dedicated-ip-pool": None,
         "deliverability-test-report": None,
-        "identity": None,
+        "identity": 'arn:{partition}:ses:{region}:{accountId}:identity/{data["IdentityName".lower()]}',
         "receipt-filter": None,
         "receipt-rule-set": None,
-        "template": None,
+        "template": 'arn:{partition}:ses:{region}:{accountId}:template/{data["TemplateName".lower()]}',
     },
     "shield": {  # AWS Shield
         "attack": None,
@@ -915,9 +927,10 @@ unique_ids: Dict = {
         "": None,
     },
     "sns": {  # Amazon SNS
+        "topic": 'arn:{partition}:sns:{region}:{accountId}:{data["TopicName".lower()]}'
     },
     "sqs": {  # Amazon SQS
-        "": None,
+        "queue": 'arn:{partition}:sqs:{region}:{accountId}:{data["QueueName".lower()]}',
     },
     "ssm": {  # AWS Systems Manager
         "association": None,

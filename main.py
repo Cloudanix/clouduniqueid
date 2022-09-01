@@ -46,3 +46,12 @@ unique_id_format = aws_unique_id.get_unique_id_format(
 print(f"Unique id format for lambda function alias: {unique_id_format}")
 # Output: Unique id format for lambda function alias:
 # arn:{partition}:lambda:{region}:{accountId}:function:{FunctionName}:{Name}
+
+
+# Unique id for iam service access
+unique_id = aws_unique_id.get_unique_id(
+    data={'PrincipalARN': 'p12345', 'ServiceName': 's12345'}, service='iam',
+    resourceType='service-access',
+)
+print(f"Unique id for iam service access: {unique_id}")
+# Output: Unique id for iam service access: 838a05f8ab5ad10f8c60e5b8cede85dc

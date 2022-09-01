@@ -1,6 +1,7 @@
 import logging
 import re
 from typing import Dict
+import hashlib
 
 from .uniqueid import unique_ids
 
@@ -70,6 +71,22 @@ class AWSUniqueId:
                 )
 
             else:
+                if uniqueIds[service][resourceType].startswith('hashlib'):
+                    if resourceType == 'acl':
+                        try:
+                            data = "{}:{}:{}:{}:{}:{}:{}:{}".format(
+                                accountId,
+                                data['owner'],
+                                data['ownerid'],
+                                data['type'],
+                                data['displayname'],
+                                data['granteeid'],
+                                data['uri'],
+                                data['permission'],
+                            )
+                        except:
+                            raise ValueError("Invalid parameters provided, owner, ownerid, type, displayname, granteeid, uri, permission keys required in data parameter")
+                    return eval(eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", ""))
                 return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
 
     def get_unique_id_format(self, service: str, resourceType: str) -> str:
