@@ -927,7 +927,7 @@ unique_ids: Dict = {
         "": None,
     },
     "sns": {  # Amazon SNS
-        "topic": 'arn:{partition}:sns:{region}:{accountId}:{data["TopicName".lower()]}'
+        "topic": 'arn:{partition}:sns:{region}:{accountId}:{data["TopicName".lower()]}',
     },
     "sqs": {  # Amazon SQS
         "queue": 'arn:{partition}:sqs:{region}:{accountId}:{data["QueueName".lower()]}',

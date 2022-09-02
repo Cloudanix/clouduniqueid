@@ -1,7 +1,7 @@
+import hashlib
 import logging
 import re
 from typing import Dict
-import hashlib
 
 from .uniqueid import unique_ids
 
@@ -41,8 +41,8 @@ class AWSUniqueId:
             uniqueIdFormat = uniqueIds[service][resourceType].replace(" ", "").\
                 replace('data["', "").replace('".lower()]', "")
             logger.error("AWS accountId required")
-            raise ValueError(f"Invalid parameters provided, AWS accountId required, uniqu\
-                eId format for resource {service} {resourceType} is {uniqueIdFormat}")
+            raise ValueError(f"Invalid parameters provided, AWS accountId required,\
+                uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}")
 
         elif 'region' in uniqueIds[service][resourceType] and not region:
             uniqueIdFormat = uniqueIds[service][resourceType].replace(" ", "").replace('data["', "").\
