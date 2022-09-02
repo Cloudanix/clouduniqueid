@@ -1,3 +1,4 @@
+import hashlib
 import logging
 import re
 from typing import Dict
@@ -40,8 +41,8 @@ class AWSUniqueId:
             uniqueIdFormat = uniqueIds[service][resourceType].replace(" ", "").\
                 replace('data["', "").replace('".lower()]', "")
             logger.error("AWS accountId required")
-            raise ValueError(f"Invalid parameters provided, AWS accountId required, uniqu\
-                eId format for resource {service} {resourceType} is {uniqueIdFormat}")
+            raise ValueError(f"Invalid parameters provided, AWS accountId required,\
+                uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}")
 
         elif 'region' in uniqueIds[service][resourceType] and not region:
             uniqueIdFormat = uniqueIds[service][resourceType].replace(" ", "").replace('data["', "").\
@@ -70,6 +71,22 @@ class AWSUniqueId:
                 )
 
             else:
+                if uniqueIds[service][resourceType].startswith('hashlib'):
+                    if resourceType == 'acl':
+                        try:
+                            data = "{}:{}:{}:{}:{}:{}:{}:{}".format(
+                                accountId,
+                                data['owner'],
+                                data['ownerid'],
+                                data['type'],
+                                data['displayname'],
+                                data['granteeid'],
+                                data['uri'],
+                                data['permission'],
+                            )
+                        except:
+                            raise ValueError("Invalid parameters provided, owner, ownerid, type, displayname, granteeid, uri, permission keys required in data parameter")
+                    return eval(eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", ""))
                 return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
 
     def get_unique_id_format(self, service: str, resourceType: str) -> str:
