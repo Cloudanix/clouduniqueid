@@ -28,5 +28,5 @@ unique_ids: Dict = {
     "function": {
         "location": '{data["name".lower()]}',
         "function": 'projects/{projectId}/locations/{location}/functions/{data["FunctionName".lower()]}',
-    }
+    },
 }
