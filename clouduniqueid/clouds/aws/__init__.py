@@ -2,7 +2,7 @@ import logging
 import re
 from typing import Dict
 
-from .uniqueid import unique_ids
+from .uniqueid import unique_id_patterns
 
 logger = logging.getLogger(__name__)
 
@@ -28,21 +28,23 @@ class AWSUniqueId:
         region: str | None = None,
         partition: str = "aws",
     ) -> str:
-        uniqueIds: Dict = unique_ids
+        uniqueIds: Dict = unique_id_patterns
         data = {k.lower().replace("_", ""): v for k, v in data.items()}
         dataKeys = list(data.keys())
 
         if not uniqueIds.get(service, None):
             logger.error(f"AWS service {service} unknown")
-            raise ValueError(f"AWS service {service} unknown")
+            return ""
+            # raise ValueError(f"AWS service {service} unknown")
 
         elif not uniqueIds.get(service, {}).get(resourceType, None):
             logger.error(
                 f"AWS service {service} resource type {resourceType} not supported",
             )
-            raise ValueError(
-                f"AWS service {service} resource type {resourceType} not supported",
-            )
+            # raise ValueError(
+            #     f"AWS service {service} resource type {resourceType} not supported",
+            # )
+            return ""
 
         elif "accountId" in uniqueIds[service][resourceType] and not accountId:
             uniqueIdFormat = (
@@ -52,8 +54,9 @@ class AWSUniqueId:
                 .replace('".lower()]', "")
             )
             logger.error("AWS accountId required")
-            raise ValueError(f"Invalid parameters provided, AWS accountId required,\
-                uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}")
+            # raise ValueError(f"Invalid parameters provided, AWS accountId required,\
+            #     uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}")
+            return ""
 
         elif "region" in uniqueIds[service][resourceType] and not region:
             uniqueIdFormat = (
@@ -63,10 +66,11 @@ class AWSUniqueId:
                 .replace('".lower()]', "")
             )
             logger.error("AWS region required")
-            raise ValueError(
-                f"Invalid parameters provided, AWS region required, ,\
-                    uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}",
-            )
+            # raise ValueError(
+            #     f"Invalid parameters provided, AWS region required, ,\
+            #         uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}",
+            # )
+            return ""
 
         else:
             uniqueIdFormat = (
@@ -84,48 +88,48 @@ class AWSUniqueId:
                 errorMsg = errorMsg[:-1]
 
                 logger.error(f"AWS{errorMsg} keys required in data parameter")
-                raise ValueError(
-                    f"Invalid parameters provided, AWS{errorMsg} keys required in data parameter,\
-                        uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}",
-                )
+                # raise ValueError(
+                #     f"Invalid parameters provided, AWS{errorMsg} keys required in data parameter,\
+                #         uniqueId format for resource {service} {resourceType} is {uniqueIdFormat}",
+                # )
+                return ""
 
             else:
                 if uniqueIds[service][resourceType].startswith("hashlib"):
                     if resourceType == "acl":
-                        try:
-                            data = "{}:{}:{}:{}:{}:{}:{}:{}".format(
-                                accountId,
-                                data["owner"],
-                                data["ownerid"],
-                                data["type"],
-                                data["displayname"],
-                                data["granteeid"],
-                                data["uri"],
-                                data["permission"],
-                            )
-                        except Exception as e:
-                            raise ValueError(
-                                f"Invalid parameters provided, owner, ownerid, type, displayname, granteeid, uri, permission keys required in data parameter: {e}",
-                            )
+                        return "{}:{}:{}:{}:{}:{}:{}:{}".format(
+                            accountId,
+                            data.get("owner"),
+                            data.get("ownerid"),
+                            data.get("type"),
+                            data.get("displayname"),
+                            data.get("granteeid"),
+                            data.get("uri"),
+                            data.get("permission"),
+                        )
+
                     return eval(
                         eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", ""),
                     )
+
                 return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
 
     def get_unique_id_format(self, service: str, resourceType: str) -> str:
-        uniqueIds: Dict = unique_ids
+        uniqueIds: Dict = unique_id_patterns
 
         if not uniqueIds.get(service, None):
             logger.error(f"AWS service {service} unknown")
-            raise ValueError(f"AWS service {service} unknown")
+            # raise ValueError(f"AWS service {service} unknown")
+            return ""
 
         elif not uniqueIds.get(service, {}).get(resourceType, None):
             logger.error(
                 f"AWS service {service} resource type {resourceType} not supported",
             )
-            raise ValueError(
-                f"AWS service {service} resource type {resourceType} not supported",
-            )
+            # raise ValueError(
+            #     f"AWS service {service} resource type {resourceType} not supported",
+            # )
+            return ""
 
         else:
             return (
