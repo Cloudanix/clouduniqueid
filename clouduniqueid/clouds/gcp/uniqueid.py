@@ -1,7 +1,7 @@
 from typing import Dict
 
 
-unique_ids: Dict = {
+unique_id_patterns: Dict = {
     "iam": {
         "user": '{data["email".lower()]}',
         "service-account": '{data["email".lower()]}',

@@ -2,7 +2,7 @@ import logging
 import re
 from typing import Dict
 
-from .uniqueid import unique_ids
+from .uniqueid import unique_id_patterns
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ class GCPUniqueId:
         projectId: str | None = None,
         location: str | None = None,
     ) -> str:
-        uniqueIds: Dict = unique_ids
+        uniqueIds: Dict = unique_id_patterns
         data = {k.lower().replace("_", ""): v for k, v in data.items()}
         dataKeys = list(data.keys())
 
@@ -114,7 +114,7 @@ class GCPUniqueId:
                 return eval(f"f'{uniqueIds[service][resourceType]}'").replace(" ", "")
 
     def get_unique_id_format(self, service: str, resourceType: str) -> str:
-        uniqueIds: Dict = unique_ids
+        uniqueIds: Dict = unique_id_patterns
 
         if not uniqueIds.get(service, None):
             logger.error(f"GCP service {service} unknown")

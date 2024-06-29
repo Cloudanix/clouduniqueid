@@ -1,7 +1,6 @@
 from typing import Dict
 
-
-unique_ids: Dict = {
+unique_id_patterns: Dict = {
     "a4b": {  # Alexa for Business
         "address-book": None,
         "conference-provider": None,
