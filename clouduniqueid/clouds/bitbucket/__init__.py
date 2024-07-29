@@ -47,12 +47,3 @@ class BitbucketUniqueId:
         except KeyError as e:
             logger.error(f"Missing data for key: {e}")
             return ""
-
-    def get_unique_id_format(self, resourceType: str) -> str:
-        uniqueIds: Dict = unique_id_patterns
-
-        if resourceType not in uniqueIds.get('bitbucket', {}):
-            logger.error(f"Bitbucket resource type {resourceType} not supported")
-            return ""
-
-        return uniqueIds['bitbucket'][resourceType].replace(" ", "")
