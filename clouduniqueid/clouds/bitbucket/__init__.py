@@ -1,113 +1,58 @@
+
+
+from .uniqueid import unique_id_patterns
 import logging
 import re
 from typing import Dict
-
-from .uniqueid import unique_id_patterns
 
 logger = logging.getLogger(__name__)
 
 
 def check_missing_data_keys(dataKeys: list, uniqueIdFormat: str):
-    uniqueIdKeys = re.findall(r'{(.*?)}', uniqueIdFormat)
-    print(uniqueIdKeys)
-    print(uniqueIdFormat)
-    missingKeys = []
-
-    for key in uniqueIdKeys:
-        if key.lower() not in dataKeys:
-            missingKeys.append(key)
-
+    uniqueIdKeys = re.findall(r"{(.*?)}", uniqueIdFormat)
+    missingKeys = [key for key in uniqueIdKeys if key.lower() not in dataKeys]
     return missingKeys
 
 
 class BitbucketUniqueId:
-    def __init__(self):
-        self.valid_services = ["bitbucket"]
-        self.valid_resource_types = ["workspace", "member", "project", "repository"]
+    def get_unique_id(
+        self,
+        resourceType: str,
+        data: Dict,
+        service: str = 'bitbucket',
+    ) -> str:
+        uniqueIds: Dict = unique_id_patterns
+        data = {k.lower().replace("_", ""): v for k, v in data.items()}
+        dataKeys = list(data.keys())
 
-    def get_unique_id(self, resourceType: str, data: Dict, service: str = 'Bitbucket'):
-        if service not in self.valid_services:
+        if service not in uniqueIds:
+            logger.error(f"Bitbucket service {service} unknown")
             return ""
 
-        if resourceType not in self.valid_resource_types:
+        if resourceType not in uniqueIds[service]:
+            logger.error(f"Bitbucket service {service} resource type {resourceType} not supported")
             return ""
 
-        unique_id = f"{service}:"
+        uniqueIdFormat = uniqueIds[service][resourceType]
 
-        if resourceType == "workspace":
-            workspace = data.get("workspace", "")
-            unique_id += workspace
+        missingKeys = check_missing_data_keys(dataKeys, uniqueIdFormat)
+        if missingKeys:
+            errorMsg = ", ".join(missingKeys)
+            logger.error(f"Bitbucket {errorMsg} keys required in data parameter")
+            return ""
 
-        elif resourceType == "member":
-            workspace = data.get("workspace", "")
-            member = data.get("member", "")
-            if workspace and member:
-                unique_id += f"{workspace}:{member}"
-            else:
-                return ""
+        try:
+            uniqueId = uniqueIdFormat.format(**data).replace(" ", "")
+            return uniqueId
+        except KeyError as e:
+            logger.error(f"Missing data for key: {e}")
+            return ""
 
-        elif resourceType == "project":
-            workspace = data.get("workspace", "")
-            project = data.get("project", "")
-            if workspace and project:
-                unique_id += f"{workspace}:{project}"
-            #else:
-                #return ""  # Return empty if workspace or project is missing
+    def get_unique_id_format(self, resourceType: str) -> str:
+        uniqueIds: Dict = unique_id_patterns
 
-        elif resourceType == "repository":
-            workspace = data.get("workspace", "")
-            project = data.get("project", "")
-            repository = data.get("repository", "")
-            if workspace and project and repository:
-                unique_id += f"{workspace}:{project}:{repository}"
-            else:
-                return ""
+        if resourceType not in uniqueIds.get('bitbucket', {}):
+            logger.error(f"Bitbucket resource type {resourceType} not supported")
+            return ""
 
-        return unique_id
-
-
-# class BitbucketUniqueId:
-#     def get_unique_id(
-#         self,
-#         resourceType: str,
-#         data: Dict,
-#         service: str = 'bitbucket'
-
-#     ) -> str:
-#         uniqueIds: Dict = unique_id_patterns
-#         data = {k.lower().replace("_", ""): v for k, v in data.items()}
-#         dataKeys = list(data.keys())
-
-#         if not uniqueIds.get("bitbucket", None):
-#             logger.error(f"Bitbucket service unknown")
-#             return ""
-
-#         elif not uniqueIds.get("bitbucket", {}).get(resourceType, None):
-#             logger.error(
-#                 f"Bitbucket service resource type {resourceType} not supported",
-#             )
-#             return ""
-
-#         else:
-#             uniqueIdFormat = (
-#                 uniqueIds["bitbucket"][resourceType]
-#                 .replace(" ", "")
-#             )
-#             missingKeys = check_missing_data_keys(dataKeys, uniqueIdFormat)
-#             if len(missingKeys) > 0:
-#                 errorMsg = ", ".join(missingKeys)
-#                 logger.error(f"Bitbucket {errorMsg} keys required in data parameter")
-#                 return ""
-
-#             else:
-#                 return eval(f"f'{uniqueIdFormat}'").replace(" ", "")
-
-
-# if __name__ == "__main__":
-#     bitbucket_unique_id = BitbucketUniqueId()
-#     example_data = {
-#         "workspace": "my_workspace",
-#         "member": "my_member",
-#         "project": "my_project",
-#         "repository": "my_repository"
-#     }
+        return uniqueIds['bitbucket'][resourceType].replace(" ", "")
