@@ -35,12 +35,12 @@ class BitbucketUniqueId:
 
         if missing_keys:
             error_msg = ", ".join(missing_keys)
-            logger.error(f"Bitbucket {error_msg} keys required in data parameter")
+            logger.error(f"Bitbucket {error_msg} keys required")
             return ""
 
         return eval(f"f'{unique_id_format}'".format(**data)).replace(" ", "")
 
-    def get_unique_id_format(resourceType: str) -> str:
+    def get_unique_id_format(self, resourceType: str) -> str:
         if resourceType not in unique_id_patterns.get('bitbucket', {}):
             logger.error(f"Bitbucket resource type {resourceType} not supported")
             return ""
