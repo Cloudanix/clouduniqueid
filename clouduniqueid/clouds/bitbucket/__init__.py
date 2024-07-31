@@ -1,10 +1,8 @@
-
-
-from .uniqueid import unique_id_patterns
-
 import logging
 import re
 from typing import Dict
+
+from .uniqueid import unique_id_patterns
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +14,12 @@ def check_missing_data_keys(dataKeys: list, uniqueIdFormat: str):
 
 
 class BitbucketUniqueId:
-
-    def get_unique_id(self, resourceType: str, data: Dict, service: str = 'bitbucket') -> str:
-
+    def get_unique_id(
+        self,
+        resourceType: str,
+        data: Dict,
+        service: str = "bitbucket",
+    ) -> str:
         data = {k.lower().replace("_", ""): v for k, v in data.items()}
         data_keys = list(data.keys())
 
@@ -27,7 +28,9 @@ class BitbucketUniqueId:
             return ""
 
         if resourceType not in unique_id_patterns[service]:
-            logger.error(f"Service {service} resource type {resourceType} not supported")
+            logger.error(
+                f"Service {service} resource type {resourceType} not supported",
+            )
             return ""
 
         unique_id_format = unique_id_patterns[service][resourceType]
@@ -41,8 +44,8 @@ class BitbucketUniqueId:
         return eval(f"f'{unique_id_format}'".format(**data)).replace(" ", "")
 
     def get_unique_id_format(self, resourceType: str) -> str:
-        if resourceType not in unique_id_patterns.get('bitbucket', {}):
+        if resourceType not in unique_id_patterns.get("bitbucket", {}):
             logger.error(f"Bitbucket resource type {resourceType} not supported")
             return ""
 
-        return unique_id_patterns['bitbucket'][resourceType].replace(" ", "")
+        return unique_id_patterns["bitbucket"][resourceType].replace(" ", "")
