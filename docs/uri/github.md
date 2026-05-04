@@ -32,7 +32,7 @@ GitHub identifies resources using a combination of **slug paths** and **numeric 
 ## CUID Mapping
 
 ```
-cuid:github:{service}:{owner}::{resource-type}/{resource-id}
+github:{service}:{owner}::{resource-type}/{resource-id}
 ```
 
 ### Field Mapping
@@ -70,37 +70,37 @@ cuid:github:{service}:{owner}::{resource-type}/{resource-id}
 
 ```
 facebook/react (repository)
-→ cuid:github:repos:facebook::repository/react
+→ github:repos:facebook::repository/react
 
 facebook/react#1234 (issue)
-→ cuid:github:issues:facebook::issue/react/1234
+→ github:issues:facebook::issue/react/1234
 
 facebook/react#5678 (pull request)
-→ cuid:github:pulls:facebook::pull/react/5678
+→ github:pulls:facebook::pull/react/5678
 
 octocat (user)
-→ cuid:github:users:octocat::user/octocat
+→ github:users:octocat::user/octocat
 
 facebook (organization)
-→ cuid:github:orgs:facebook::org/facebook
+→ github:orgs:facebook::org/facebook
 
 facebook/react/.github/workflows/ci.yml (workflow)
-→ cuid:github:actions:facebook::workflow/react/ci.yml
+→ github:actions:facebook::workflow/react/ci.yml
 
 facebook/react/environments/production (environment)
-→ cuid:github:environments:facebook::environment/react/production
+→ github:environments:facebook::environment/react/production
 ```
 
 ### CUID → Native
 
 ```
-cuid:github:repos:facebook::repository/react
+github:repos:facebook::repository/react
 → facebook/react
 
-cuid:github:issues:facebook::issue/react/1234
+github:issues:facebook::issue/react/1234
 → facebook/react#1234
 
-cuid:github:users:octocat::user/octocat
+github:users:octocat::user/octocat
 → octocat
 ```
 
@@ -110,57 +110,57 @@ cuid:github:users:octocat::user/octocat
 
 | Resource Type       | CUID Example                                                     |
 |---------------------|------------------------------------------------------------------|
-| Repository          | `cuid:github:repos:{owner}::repository/{repo}`                  |
-| Branch              | `cuid:github:repos:{owner}::branch/{repo}/{branch}`             |
-| Tag                 | `cuid:github:repos:{owner}::tag/{repo}/{tag}`                   |
-| Commit              | `cuid:github:repos:{owner}::commit/{repo}/{sha}`                |
-| Release             | `cuid:github:releases:{owner}::release/{repo}/{tag}`            |
+| Repository          | `github:repos:{owner}::repository/{repo}`                  |
+| Branch              | `github:repos:{owner}::branch/{repo}/{branch}`             |
+| Tag                 | `github:repos:{owner}::tag/{repo}/{tag}`                   |
+| Commit              | `github:repos:{owner}::commit/{repo}/{sha}`                |
+| Release             | `github:releases:{owner}::release/{repo}/{tag}`            |
 
 ### Issues & PRs
 
 | Resource Type       | CUID Example                                                     |
 |---------------------|------------------------------------------------------------------|
-| Issue               | `cuid:github:issues:{owner}::issue/{repo}/{number}`             |
-| Pull Request        | `cuid:github:pulls:{owner}::pull/{repo}/{number}`               |
-| Comment (issue)     | `cuid:github:issues:{owner}::comment/{repo}/{comment-id}`       |
-| Review (PR)         | `cuid:github:pulls:{owner}::review/{repo}/{pr}/{review-id}`     |
+| Issue               | `github:issues:{owner}::issue/{repo}/{number}`             |
+| Pull Request        | `github:pulls:{owner}::pull/{repo}/{number}`               |
+| Comment (issue)     | `github:issues:{owner}::comment/{repo}/{comment-id}`       |
+| Review (PR)         | `github:pulls:{owner}::review/{repo}/{pr}/{review-id}`     |
 
 ### CI/CD
 
 | Resource Type       | CUID Example                                                     |
 |---------------------|------------------------------------------------------------------|
-| Workflow            | `cuid:github:actions:{owner}::workflow/{repo}/{filename}`        |
-| Workflow Run        | `cuid:github:actions:{owner}::run/{repo}/{run-id}`              |
-| Job                 | `cuid:github:actions:{owner}::job/{repo}/{job-id}`              |
-| Artifact            | `cuid:github:actions:{owner}::artifact/{repo}/{artifact-id}`    |
-| Environment         | `cuid:github:environments:{owner}::environment/{repo}/{name}`   |
-| Secret (repo)       | `cuid:github:secrets:{owner}::secret/{repo}/{name}`             |
-| Secret (org)        | `cuid:github:secrets:{owner}::org-secret/{name}`                |
+| Workflow            | `github:actions:{owner}::workflow/{repo}/{filename}`        |
+| Workflow Run        | `github:actions:{owner}::run/{repo}/{run-id}`              |
+| Job                 | `github:actions:{owner}::job/{repo}/{job-id}`              |
+| Artifact            | `github:actions:{owner}::artifact/{repo}/{artifact-id}`    |
+| Environment         | `github:environments:{owner}::environment/{repo}/{name}`   |
+| Secret (repo)       | `github:secrets:{owner}::secret/{repo}/{name}`             |
+| Secret (org)        | `github:secrets:{owner}::org-secret/{name}`                |
 
 ### Organization & Access
 
 | Resource Type       | CUID Example                                                     |
 |---------------------|------------------------------------------------------------------|
-| Organization        | `cuid:github:orgs:{owner}::org/{name}`                          |
-| User                | `cuid:github:users:{user}::user/{user}`                         |
-| Team                | `cuid:github:teams:{org}::team/{team-slug}`                     |
-| App Installation    | `cuid:github:apps:{owner}::installation/{installation-id}`      |
+| Organization        | `github:orgs:{owner}::org/{name}`                          |
+| User                | `github:users:{user}::user/{user}`                         |
+| Team                | `github:teams:{org}::team/{team-slug}`                     |
+| App Installation    | `github:apps:{owner}::installation/{installation-id}`      |
 
 ### Packages & Security
 
 | Resource Type       | CUID Example                                                     |
 |---------------------|------------------------------------------------------------------|
-| Package             | `cuid:github:packages:{owner}::package/{type}/{name}`           |
-| Package Version     | `cuid:github:packages:{owner}::version/{type}/{name}/{version}` |
-| Advisory            | `cuid:github:security:{owner}::advisory/{repo}/{ghsa-id}`       |
-| Dependabot Alert    | `cuid:github:security:{owner}::dependabot/{repo}/{number}`      |
-| Code Scanning Alert | `cuid:github:security:{owner}::code-scanning/{repo}/{number}`   |
+| Package             | `github:packages:{owner}::package/{type}/{name}`           |
+| Package Version     | `github:packages:{owner}::version/{type}/{name}/{version}` |
+| Advisory            | `github:security:{owner}::advisory/{repo}/{ghsa-id}`       |
+| Dependabot Alert    | `github:security:{owner}::dependabot/{repo}/{number}`      |
+| Code Scanning Alert | `github:security:{owner}::code-scanning/{repo}/{number}`   |
 
 ## Edge Cases
 
 1. **Issues vs PRs** — GitHub uses the same numeric sequence for both. The CUID distinguishes them via `service` (`issues` vs `pulls`) and `resource_type` (`issue` vs `pull`).
-2. **GitHub Enterprise Server** — For GHES instances, the region field contains the hostname: `cuid:github:repos:myorg:ghes.company.com:repository/myrepo`.
-3. **Forks** — A fork is a separate repository under the fork owner: `cuid:github:repos:my-fork-owner::repository/react`.
+2. **GitHub Enterprise Server** — For GHES instances, the region field contains the hostname: `github:repos:myorg:ghes.company.com:repository/myrepo`.
+3. **Forks** — A fork is a separate repository under the fork owner: `github:repos:my-fork-owner::repository/react`.
 4. **Renamed repos/users** — GitHub redirects old names, but the CUID uses the current canonical name. CUIDs change when resources are renamed.
 5. **Nested orgs** — GitHub does not support nested organizations. The owner is always a single-level slug.
 6. **GraphQL Node IDs** — Not used in CUIDs. CUIDs use human-readable slugs for portability and readability.

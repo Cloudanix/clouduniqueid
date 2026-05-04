@@ -37,7 +37,7 @@ API base: `https://{instance}/rest/api/latest/projects/{key}/repos/{slug}`
 ## CUID Mapping
 
 ```
-cuid:bitbucket:{service}:{workspace}::{resource-type}/{resource-id}
+bitbucket:{service}:{workspace}::{resource-type}/{resource-id}
 ```
 
 ### Field Mapping
@@ -71,34 +71,34 @@ cuid:bitbucket:{service}:{workspace}::{resource-type}/{resource-id}
 
 ```
 my-workspace/my-repo (repository)
-→ cuid:bitbucket:repos:my-workspace::repository/my-repo
+→ bitbucket:repos:my-workspace::repository/my-repo
 
 my-workspace/my-repo/pull-requests/42 (pull request)
-→ cuid:bitbucket:pulls:my-workspace::pull/my-repo/42
+→ bitbucket:pulls:my-workspace::pull/my-repo/42
 
 my-workspace/my-repo/issues/7 (issue)
-→ cuid:bitbucket:issues:my-workspace::issue/my-repo/7
+→ bitbucket:issues:my-workspace::issue/my-repo/7
 
 my-workspace/my-repo/pipelines/{uuid} (pipeline run)
-→ cuid:bitbucket:pipelines:my-workspace::pipeline/my-repo/{uuid}
+→ bitbucket:pipelines:my-workspace::pipeline/my-repo/{uuid}
 
 my-workspace (workspace)
-→ cuid:bitbucket:workspaces:my-workspace::workspace/my-workspace
+→ bitbucket:workspaces:my-workspace::workspace/my-workspace
 
 my-workspace/MY-PROJECT (project)
-→ cuid:bitbucket:projects:my-workspace::project/MY-PROJECT
+→ bitbucket:projects:my-workspace::project/MY-PROJECT
 ```
 
 ### CUID → Native
 
 ```
-cuid:bitbucket:repos:my-workspace::repository/my-repo
+bitbucket:repos:my-workspace::repository/my-repo
 → my-workspace/my-repo
 
-cuid:bitbucket:pulls:my-workspace::pull/my-repo/42
+bitbucket:pulls:my-workspace::pull/my-repo/42
 → my-workspace/my-repo/pull-requests/42
 
-cuid:bitbucket:workspaces:my-workspace::workspace/my-workspace
+bitbucket:workspaces:my-workspace::workspace/my-workspace
 → my-workspace
 ```
 
@@ -108,49 +108,49 @@ cuid:bitbucket:workspaces:my-workspace::workspace/my-workspace
 
 | Resource Type       | CUID Example                                                        |
 |---------------------|---------------------------------------------------------------------|
-| Repository          | `cuid:bitbucket:repos:{ws}::repository/{repo}`                     |
-| Branch              | `cuid:bitbucket:repos:{ws}::branch/{repo}/{branch}`                |
-| Tag                 | `cuid:bitbucket:repos:{ws}::tag/{repo}/{tag}`                      |
-| Commit              | `cuid:bitbucket:repos:{ws}::commit/{repo}/{sha}`                   |
+| Repository          | `bitbucket:repos:{ws}::repository/{repo}`                     |
+| Branch              | `bitbucket:repos:{ws}::branch/{repo}/{branch}`                |
+| Tag                 | `bitbucket:repos:{ws}::tag/{repo}/{tag}`                      |
+| Commit              | `bitbucket:repos:{ws}::commit/{repo}/{sha}`                   |
 
 ### Pull Requests & Issues
 
 | Resource Type       | CUID Example                                                        |
 |---------------------|---------------------------------------------------------------------|
-| Pull Request        | `cuid:bitbucket:pulls:{ws}::pull/{repo}/{id}`                      |
-| PR Comment          | `cuid:bitbucket:pulls:{ws}::comment/{repo}/{pr-id}/{comment-id}`   |
-| Issue               | `cuid:bitbucket:issues:{ws}::issue/{repo}/{id}`                    |
+| Pull Request        | `bitbucket:pulls:{ws}::pull/{repo}/{id}`                      |
+| PR Comment          | `bitbucket:pulls:{ws}::comment/{repo}/{pr-id}/{comment-id}`   |
+| Issue               | `bitbucket:issues:{ws}::issue/{repo}/{id}`                    |
 
 ### CI/CD
 
 | Resource Type       | CUID Example                                                        |
 |---------------------|---------------------------------------------------------------------|
-| Pipeline            | `cuid:bitbucket:pipelines:{ws}::pipeline/{repo}/{uuid}`            |
-| Pipeline Step       | `cuid:bitbucket:pipelines:{ws}::step/{repo}/{pipeline-uuid}/{uuid}`|
-| Deployment          | `cuid:bitbucket:deployments:{ws}::deployment/{repo}/{uuid}`        |
-| Environment         | `cuid:bitbucket:deployments:{ws}::environment/{repo}/{uuid}`       |
+| Pipeline            | `bitbucket:pipelines:{ws}::pipeline/{repo}/{uuid}`            |
+| Pipeline Step       | `bitbucket:pipelines:{ws}::step/{repo}/{pipeline-uuid}/{uuid}`|
+| Deployment          | `bitbucket:deployments:{ws}::deployment/{repo}/{uuid}`        |
+| Environment         | `bitbucket:deployments:{ws}::environment/{repo}/{uuid}`       |
 
 ### Organization
 
 | Resource Type       | CUID Example                                                        |
 |---------------------|---------------------------------------------------------------------|
-| Workspace           | `cuid:bitbucket:workspaces:{ws}::workspace/{ws}`                   |
-| Project             | `cuid:bitbucket:projects:{ws}::project/{key}`                      |
-| Workspace Member    | `cuid:bitbucket:workspaces:{ws}::member/{username}`                |
-| Group Permission    | `cuid:bitbucket:repos:{ws}::group-permission/{repo}/{group}`       |
+| Workspace           | `bitbucket:workspaces:{ws}::workspace/{ws}`                   |
+| Project             | `bitbucket:projects:{ws}::project/{key}`                      |
+| Workspace Member    | `bitbucket:workspaces:{ws}::member/{username}`                |
+| Group Permission    | `bitbucket:repos:{ws}::group-permission/{repo}/{group}`       |
 
 ### Other
 
 | Resource Type       | CUID Example                                                        |
 |---------------------|---------------------------------------------------------------------|
-| Snippet             | `cuid:bitbucket:snippets:{ws}::snippet/{id}`                       |
-| Download            | `cuid:bitbucket:downloads:{ws}::download/{repo}/{filename}`        |
-| SSH Key             | `cuid:bitbucket:repos:{ws}::ssh-key/{repo}/{key-id}`              |
-| Webhook             | `cuid:bitbucket:repos:{ws}::webhook/{repo}/{uuid}`                |
+| Snippet             | `bitbucket:snippets:{ws}::snippet/{id}`                       |
+| Download            | `bitbucket:downloads:{ws}::download/{repo}/{filename}`        |
+| SSH Key             | `bitbucket:repos:{ws}::ssh-key/{repo}/{key-id}`              |
+| Webhook             | `bitbucket:repos:{ws}::webhook/{repo}/{uuid}`                |
 
 ## Edge Cases
 
-1. **Cloud vs Data Center** — For Bitbucket Data Center, the region field contains the instance hostname: `cuid:bitbucket:repos:MY-PROJECT:bitbucket.company.com:repository/my-repo`. The account field uses the project key instead of workspace slug.
+1. **Cloud vs Data Center** — For Bitbucket Data Center, the region field contains the instance hostname: `bitbucket:repos:MY-PROJECT:bitbucket.company.com:repository/my-repo`. The account field uses the project key instead of workspace slug.
 2. **UUIDs vs slugs** — Bitbucket assigns UUIDs to all entities, but CUIDs use human-readable slugs for repositories and workspaces. UUIDs are used only for resources that lack stable slugs (pipelines, deployments).
 3. **Project keys** — Project keys are uppercase (e.g., `PROJ`). They are preserved as-is in the resource_id.
 4. **Personal repositories** — Repos under a personal workspace use the username as the workspace slug.

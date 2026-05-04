@@ -70,7 +70,7 @@ ocid1.bucket.oc1.iad.aaaaaaaabcdefghijklmnop
 ## CUID Mapping
 
 ```
-cuid:oci:{service}:{tenancy-ocid}:{region}:{resource-type}/{ocid}
+oci:{service}:{tenancy-ocid}:{region}:{resource-type}/{ocid}
 ```
 
 ### Field Mapping
@@ -112,16 +112,16 @@ cuid:oci:{service}:{tenancy-ocid}:{region}:{resource-type}/{ocid}
 
 ```
 ocid1.instance.oc1.iad.abcdef123456
-→ cuid:oci:compute:{tenancy}:us-ashburn-1:instance/ocid1.instance.oc1.iad.abcdef123456
+→ oci:compute:{tenancy}:us-ashburn-1:instance/ocid1.instance.oc1.iad.abcdef123456
 
 ocid1.vcn.oc1.phx.abcdef123456
-→ cuid:oci:network:{tenancy}:us-phoenix-1:vcn/ocid1.vcn.oc1.phx.abcdef123456
+→ oci:network:{tenancy}:us-phoenix-1:vcn/ocid1.vcn.oc1.phx.abcdef123456
 
 ocid1.compartment.oc1..aaaaaaaabcdef
-→ cuid:oci:identity:{tenancy}::compartment/ocid1.compartment.oc1..aaaaaaaabcdef
+→ oci:identity:{tenancy}::compartment/ocid1.compartment.oc1..aaaaaaaabcdef
 
 ocid1.bucket.oc1.iad.aaaaaaaabcdef
-→ cuid:oci:objectstorage:{tenancy}:us-ashburn-1:bucket/ocid1.bucket.oc1.iad.aaaaaaaabcdef
+→ oci:objectstorage:{tenancy}:us-ashburn-1:bucket/ocid1.bucket.oc1.iad.aaaaaaaabcdef
 ```
 
 ### CUID → Native OCID
@@ -129,7 +129,7 @@ ocid1.bucket.oc1.iad.aaaaaaaabcdef
 The resource_id field contains the full OCID, so conversion back is direct extraction.
 
 ```
-cuid:oci:compute:{tenancy}:us-ashburn-1:instance/ocid1.instance.oc1.iad.abcdef123456
+oci:compute:{tenancy}:us-ashburn-1:instance/ocid1.instance.oc1.iad.abcdef123456
 → ocid1.instance.oc1.iad.abcdef123456
 ```
 
@@ -139,67 +139,67 @@ cuid:oci:compute:{tenancy}:us-ashburn-1:instance/ocid1.instance.oc1.iad.abcdef12
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| Instance            | `cuid:oci:compute:{tenancy}:{region}:instance/{ocid}`                |
-| Image               | `cuid:oci:compute:{tenancy}:{region}:image/{ocid}`                   |
-| Boot Volume         | `cuid:oci:blockstorage:{tenancy}:{region}:boot-volume/{ocid}`        |
-| Volume              | `cuid:oci:blockstorage:{tenancy}:{region}:volume/{ocid}`             |
-| Dedicated VM Host   | `cuid:oci:compute:{tenancy}:{region}:dedicated-vm-host/{ocid}`       |
-| OKE Cluster         | `cuid:oci:oke:{tenancy}:{region}:cluster/{ocid}`                     |
-| OKE Node Pool       | `cuid:oci:oke:{tenancy}:{region}:node-pool/{ocid}`                   |
-| Function            | `cuid:oci:functions:{tenancy}:{region}:function/{ocid}`              |
+| Instance            | `oci:compute:{tenancy}:{region}:instance/{ocid}`                |
+| Image               | `oci:compute:{tenancy}:{region}:image/{ocid}`                   |
+| Boot Volume         | `oci:blockstorage:{tenancy}:{region}:boot-volume/{ocid}`        |
+| Volume              | `oci:blockstorage:{tenancy}:{region}:volume/{ocid}`             |
+| Dedicated VM Host   | `oci:compute:{tenancy}:{region}:dedicated-vm-host/{ocid}`       |
+| OKE Cluster         | `oci:oke:{tenancy}:{region}:cluster/{ocid}`                     |
+| OKE Node Pool       | `oci:oke:{tenancy}:{region}:node-pool/{ocid}`                   |
+| Function            | `oci:functions:{tenancy}:{region}:function/{ocid}`              |
 
 ### Storage
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| Bucket              | `cuid:oci:objectstorage:{tenancy}:{region}:bucket/{ocid}`            |
-| File System         | `cuid:oci:filestorage:{tenancy}:{region}:file-system/{ocid}`         |
-| Mount Target        | `cuid:oci:filestorage:{tenancy}:{region}:mount-target/{ocid}`        |
+| Bucket              | `oci:objectstorage:{tenancy}:{region}:bucket/{ocid}`            |
+| File System         | `oci:filestorage:{tenancy}:{region}:file-system/{ocid}`         |
+| Mount Target        | `oci:filestorage:{tenancy}:{region}:mount-target/{ocid}`        |
 
 ### Networking
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| VCN                 | `cuid:oci:network:{tenancy}:{region}:vcn/{ocid}`                     |
-| Subnet              | `cuid:oci:network:{tenancy}:{region}:subnet/{ocid}`                  |
-| Security List       | `cuid:oci:network:{tenancy}:{region}:security-list/{ocid}`           |
-| NSG                 | `cuid:oci:network:{tenancy}:{region}:network-security-group/{ocid}`  |
-| Route Table         | `cuid:oci:network:{tenancy}:{region}:route-table/{ocid}`             |
-| Internet Gateway    | `cuid:oci:network:{tenancy}:{region}:internet-gateway/{ocid}`        |
-| NAT Gateway         | `cuid:oci:network:{tenancy}:{region}:nat-gateway/{ocid}`             |
-| Load Balancer       | `cuid:oci:loadbalancer:{tenancy}:{region}:load-balancer/{ocid}`      |
-| DNS Zone            | `cuid:oci:dns:{tenancy}::zone/{ocid}`                                |
+| VCN                 | `oci:network:{tenancy}:{region}:vcn/{ocid}`                     |
+| Subnet              | `oci:network:{tenancy}:{region}:subnet/{ocid}`                  |
+| Security List       | `oci:network:{tenancy}:{region}:security-list/{ocid}`           |
+| NSG                 | `oci:network:{tenancy}:{region}:network-security-group/{ocid}`  |
+| Route Table         | `oci:network:{tenancy}:{region}:route-table/{ocid}`             |
+| Internet Gateway    | `oci:network:{tenancy}:{region}:internet-gateway/{ocid}`        |
+| NAT Gateway         | `oci:network:{tenancy}:{region}:nat-gateway/{ocid}`             |
+| Load Balancer       | `oci:loadbalancer:{tenancy}:{region}:load-balancer/{ocid}`      |
+| DNS Zone            | `oci:dns:{tenancy}::zone/{ocid}`                                |
 
 ### Identity
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| Tenancy             | `cuid:oci:identity:{tenancy}::tenancy/{ocid}`                        |
-| Compartment         | `cuid:oci:identity:{tenancy}::compartment/{ocid}`                    |
-| User                | `cuid:oci:identity:{tenancy}::user/{ocid}`                           |
-| Group               | `cuid:oci:identity:{tenancy}::group/{ocid}`                          |
-| Policy              | `cuid:oci:identity:{tenancy}::policy/{ocid}`                         |
-| Dynamic Group       | `cuid:oci:identity:{tenancy}::dynamic-group/{ocid}`                  |
-| Vault               | `cuid:oci:vault:{tenancy}:{region}:vault/{ocid}`                     |
-| Key                 | `cuid:oci:vault:{tenancy}:{region}:key/{ocid}`                       |
+| Tenancy             | `oci:identity:{tenancy}::tenancy/{ocid}`                        |
+| Compartment         | `oci:identity:{tenancy}::compartment/{ocid}`                    |
+| User                | `oci:identity:{tenancy}::user/{ocid}`                           |
+| Group               | `oci:identity:{tenancy}::group/{ocid}`                          |
+| Policy              | `oci:identity:{tenancy}::policy/{ocid}`                         |
+| Dynamic Group       | `oci:identity:{tenancy}::dynamic-group/{ocid}`                  |
+| Vault               | `oci:vault:{tenancy}:{region}:vault/{ocid}`                     |
+| Key                 | `oci:vault:{tenancy}:{region}:key/{ocid}`                       |
 
 ### Database
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| DB System           | `cuid:oci:database:{tenancy}:{region}:db-system/{ocid}`              |
-| Autonomous DB       | `cuid:oci:database:{tenancy}:{region}:autonomous-database/{ocid}`    |
-| MySQL DB System     | `cuid:oci:database:{tenancy}:{region}:mysql-db-system/{ocid}`        |
+| DB System           | `oci:database:{tenancy}:{region}:db-system/{ocid}`              |
+| Autonomous DB       | `oci:database:{tenancy}:{region}:autonomous-database/{ocid}`    |
+| MySQL DB System     | `oci:database:{tenancy}:{region}:mysql-db-system/{ocid}`        |
 
 ### Monitoring
 
 | Resource Type       | CUID Example                                                          |
 |---------------------|-----------------------------------------------------------------------|
-| Alarm               | `cuid:oci:monitoring:{tenancy}:{region}:alarm/{ocid}`                |
-| Log Group           | `cuid:oci:logging:{tenancy}:{region}:log-group/{ocid}`               |
-| Log                 | `cuid:oci:logging:{tenancy}:{region}:log/{ocid}`                     |
-| Topic               | `cuid:oci:notifications:{tenancy}:{region}:topic/{ocid}`             |
-| Stream              | `cuid:oci:streaming:{tenancy}:{region}:stream/{ocid}`                |
+| Alarm               | `oci:monitoring:{tenancy}:{region}:alarm/{ocid}`                |
+| Log Group           | `oci:logging:{tenancy}:{region}:log-group/{ocid}`               |
+| Log                 | `oci:logging:{tenancy}:{region}:log/{ocid}`                     |
+| Topic               | `oci:notifications:{tenancy}:{region}:topic/{ocid}`             |
+| Stream              | `oci:streaming:{tenancy}:{region}:stream/{ocid}`                |
 
 ## Edge Cases
 

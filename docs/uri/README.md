@@ -14,12 +14,11 @@ Every cloud and SCM provider has its own resource identifier format — AWS has 
 ## Universal Format
 
 ```
-cuid:{provider}:{service}:{account}:{region}:{resource_type}/{resource_id}
+{provider}:{service}:{account}:{region}:{resource_type}/{resource_id}
 ```
 
 | Field           | Description                                                  | Required |
 |-----------------|--------------------------------------------------------------|----------|
-| `cuid`          | Fixed scheme prefix                                          | Yes      |
 | `provider`      | Provider identifier (see table below)                        | Yes      |
 | `service`       | Service name, normalized to lowercase                        | Yes      |
 | `account`       | Account/subscription/project/org scope                       | Varies   |
@@ -56,39 +55,38 @@ Some providers operate in isolated partitions (e.g., AWS GovCloud, Azure Governm
 
 - Fields are separated by `:` (colon).
 - Resource type and resource ID are separated by `/` (slash).
-- Empty optional fields are represented as empty strings between delimiters: `cuid:aws:s3:::bucket/my-bucket`.
+- Empty optional fields are represented as empty strings between delimiters: `aws:s3:::bucket/my-bucket`.
 - Characters outside `[a-zA-Z0-9._\-/@ ]` in resource IDs are percent-encoded.
-- The scheme prefix `cuid:` is always lowercase.
 
 ## Examples
 
 ```
 # AWS EC2 instance
-cuid:aws:ec2:123456789012:us-east-1:instance/i-1234567890abcdef0
+aws:ec2:123456789012:us-east-1:instance/i-1234567890abcdef0
 
 # AWS S3 bucket (global, no account in native ARN)
-cuid:aws:s3:::bucket/my-bucket
+aws:s3:::bucket/my-bucket
 
 # GCP Compute Engine VM
-cuid:gcp:compute:my-project:us-central1-a:instance/my-vm
+gcp:compute:my-project:us-central1-a:instance/my-vm
 
 # Azure Virtual Machine
-cuid:azure:compute:sub-123/my-rg::virtualMachines/my-vm
+azure:compute:sub-123/my-rg::virtualMachines/my-vm
 
 # OCI Compute Instance
-cuid:oci:compute:ocid1.tenancy.oc1..aaa:us-ashburn-1:instance/ocid1.instance.oc1.iad.abc123
+oci:compute:ocid1.tenancy.oc1..aaa:us-ashburn-1:instance/ocid1.instance.oc1.iad.abc123
 
 # GitHub repository
-cuid:github:repos:facebook::repository/react
+github:repos:facebook::repository/react
 
 # Bitbucket repository
-cuid:bitbucket:repos:my-workspace::repository/my-project/my-repo
+bitbucket:repos:my-workspace::repository/my-project/my-repo
 
 # GitLab project
-cuid:gitlab:projects:gitlab-org::project/gitlab
+gitlab:projects:gitlab-org::project/gitlab
 
 # Azure DevOps repository
-cuid:azuredevops:repos:my-org/my-project::repository/my-repo
+azuredevops:repos:my-org/my-project::repository/my-repo
 ```
 
 ## Provider Specs

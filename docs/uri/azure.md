@@ -37,7 +37,7 @@ Examples:
 ## CUID Mapping
 
 ```
-cuid:azure:{service}:{subscription}/{resource-group}:{region}:{resource-type}/{resource-id}
+azure:{service}:{subscription}/{resource-group}:{region}:{resource-type}/{resource-id}
 ```
 
 ### Field Mapping
@@ -82,25 +82,25 @@ cuid:azure:{service}:{subscription}/{resource-group}:{region}:{resource-type}/{r
 
 ```
 /subscriptions/sub-123/resourceGroups/myRG/providers/Microsoft.Compute/virtualMachines/myVM
-→ cuid:azure:compute:sub-123/myRG:eastus:virtualMachines/myVM
+→ azure:compute:sub-123/myRG:eastus:virtualMachines/myVM
 
 /subscriptions/sub-123/resourceGroups/myRG/providers/Microsoft.Network/virtualNetworks/myVNet/subnets/mySubnet
-→ cuid:azure:network:sub-123/myRG:eastus:subnets/myVNet/mySubnet
+→ azure:network:sub-123/myRG:eastus:subnets/myVNet/mySubnet
 
 /subscriptions/sub-123/resourceGroups/myRG/providers/Microsoft.Storage/storageAccounts/myStorage
-→ cuid:azure:storage:sub-123/myRG:eastus:storageAccounts/myStorage
+→ azure:storage:sub-123/myRG:eastus:storageAccounts/myStorage
 
 /providers/Microsoft.Management/managementGroups/myMG
-→ cuid:azure:management:::managementGroups/myMG
+→ azure:management:::managementGroups/myMG
 ```
 
 ### CUID → Native
 
 ```
-cuid:azure:compute:sub-123/myRG:eastus:virtualMachines/myVM
+azure:compute:sub-123/myRG:eastus:virtualMachines/myVM
 → /subscriptions/sub-123/resourceGroups/myRG/providers/Microsoft.Compute/virtualMachines/myVM
 
-cuid:azure:network:sub-123/myRG:eastus:subnets/myVNet/mySubnet
+azure:network:sub-123/myRG:eastus:subnets/myVNet/mySubnet
 → /subscriptions/sub-123/resourceGroups/myRG/providers/Microsoft.Network/virtualNetworks/myVNet/subnets/mySubnet
 ```
 
@@ -110,65 +110,65 @@ cuid:azure:network:sub-123/myRG:eastus:subnets/myVNet/mySubnet
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| Virtual Machine      | `cuid:azure:compute:{sub}/{rg}:{region}:virtualMachines/{name}`      |
-| VM Scale Set         | `cuid:azure:compute:{sub}/{rg}:{region}:virtualMachineScaleSets/{n}` |
-| Availability Set     | `cuid:azure:compute:{sub}/{rg}:{region}:availabilitySets/{name}`     |
-| Managed Disk         | `cuid:azure:compute:{sub}/{rg}:{region}:disks/{name}`               |
-| Function App         | `cuid:azure:web:{sub}/{rg}:{region}:sites/{name}`                   |
-| App Service          | `cuid:azure:web:{sub}/{rg}:{region}:sites/{name}`                   |
-| AKS Cluster          | `cuid:azure:aks:{sub}/{rg}:{region}:managedClusters/{name}`         |
-| Container Registry   | `cuid:azure:acr:{sub}/{rg}:{region}:registries/{name}`              |
-| Container Instance   | `cuid:azure:containerinstance:{sub}/{rg}:{region}:containerGroups/{n}`|
+| Virtual Machine      | `azure:compute:{sub}/{rg}:{region}:virtualMachines/{name}`      |
+| VM Scale Set         | `azure:compute:{sub}/{rg}:{region}:virtualMachineScaleSets/{n}` |
+| Availability Set     | `azure:compute:{sub}/{rg}:{region}:availabilitySets/{name}`     |
+| Managed Disk         | `azure:compute:{sub}/{rg}:{region}:disks/{name}`               |
+| Function App         | `azure:web:{sub}/{rg}:{region}:sites/{name}`                   |
+| App Service          | `azure:web:{sub}/{rg}:{region}:sites/{name}`                   |
+| AKS Cluster          | `azure:aks:{sub}/{rg}:{region}:managedClusters/{name}`         |
+| Container Registry   | `azure:acr:{sub}/{rg}:{region}:registries/{name}`              |
+| Container Instance   | `azure:containerinstance:{sub}/{rg}:{region}:containerGroups/{n}`|
 
 ### Storage
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| Storage Account      | `cuid:azure:storage:{sub}/{rg}:{region}:storageAccounts/{name}`      |
-| Blob Container       | `cuid:azure:storage:{sub}/{rg}:{region}:blobContainers/{acct}/{name}`|
-| File Share           | `cuid:azure:storage:{sub}/{rg}:{region}:fileShares/{acct}/{name}`    |
+| Storage Account      | `azure:storage:{sub}/{rg}:{region}:storageAccounts/{name}`      |
+| Blob Container       | `azure:storage:{sub}/{rg}:{region}:blobContainers/{acct}/{name}`|
+| File Share           | `azure:storage:{sub}/{rg}:{region}:fileShares/{acct}/{name}`    |
 
 ### Networking
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| Virtual Network      | `cuid:azure:network:{sub}/{rg}:{region}:virtualNetworks/{name}`      |
-| Subnet               | `cuid:azure:network:{sub}/{rg}:{region}:subnets/{vnet}/{name}`      |
-| Network Interface    | `cuid:azure:network:{sub}/{rg}:{region}:networkInterfaces/{name}`    |
-| NSG                  | `cuid:azure:network:{sub}/{rg}:{region}:networkSecurityGroups/{n}`   |
-| Public IP            | `cuid:azure:network:{sub}/{rg}:{region}:publicIPAddresses/{name}`   |
-| Load Balancer        | `cuid:azure:network:{sub}/{rg}:{region}:loadBalancers/{name}`       |
-| Application Gateway  | `cuid:azure:network:{sub}/{rg}:{region}:applicationGateways/{name}` |
-| DNS Zone             | `cuid:azure:network:{sub}/{rg}::dnsZones/{name}`                    |
+| Virtual Network      | `azure:network:{sub}/{rg}:{region}:virtualNetworks/{name}`      |
+| Subnet               | `azure:network:{sub}/{rg}:{region}:subnets/{vnet}/{name}`      |
+| Network Interface    | `azure:network:{sub}/{rg}:{region}:networkInterfaces/{name}`    |
+| NSG                  | `azure:network:{sub}/{rg}:{region}:networkSecurityGroups/{n}`   |
+| Public IP            | `azure:network:{sub}/{rg}:{region}:publicIPAddresses/{name}`   |
+| Load Balancer        | `azure:network:{sub}/{rg}:{region}:loadBalancers/{name}`       |
+| Application Gateway  | `azure:network:{sub}/{rg}:{region}:applicationGateways/{name}` |
+| DNS Zone             | `azure:network:{sub}/{rg}::dnsZones/{name}`                    |
 
 ### Identity & Security
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| Key Vault            | `cuid:azure:keyvault:{sub}/{rg}:{region}:vaults/{name}`             |
-| Key Vault Secret     | `cuid:azure:keyvault:{sub}/{rg}:{region}:secrets/{vault}/{name}`    |
-| Managed Identity     | `cuid:azure:identity:{sub}/{rg}:{region}:userAssignedIdentities/{n}`|
-| Role Assignment      | `cuid:azure:authorization:{sub}::roleAssignments/{id}`              |
-| Role Definition      | `cuid:azure:authorization:{sub}::roleDefinitions/{id}`              |
+| Key Vault            | `azure:keyvault:{sub}/{rg}:{region}:vaults/{name}`             |
+| Key Vault Secret     | `azure:keyvault:{sub}/{rg}:{region}:secrets/{vault}/{name}`    |
+| Managed Identity     | `azure:identity:{sub}/{rg}:{region}:userAssignedIdentities/{n}`|
+| Role Assignment      | `azure:authorization:{sub}::roleAssignments/{id}`              |
+| Role Definition      | `azure:authorization:{sub}::roleDefinitions/{id}`              |
 
 ### Database
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| SQL Server           | `cuid:azure:sql:{sub}/{rg}:{region}:servers/{name}`                 |
-| SQL Database         | `cuid:azure:sql:{sub}/{rg}:{region}:databases/{server}/{name}`      |
-| PostgreSQL Server    | `cuid:azure:postgresql:{sub}/{rg}:{region}:servers/{name}`          |
-| Cosmos DB Account    | `cuid:azure:cosmosdb:{sub}/{rg}:{region}:databaseAccounts/{name}`   |
-| Redis Cache          | `cuid:azure:redis:{sub}/{rg}:{region}:redis/{name}`                 |
+| SQL Server           | `azure:sql:{sub}/{rg}:{region}:servers/{name}`                 |
+| SQL Database         | `azure:sql:{sub}/{rg}:{region}:databases/{server}/{name}`      |
+| PostgreSQL Server    | `azure:postgresql:{sub}/{rg}:{region}:servers/{name}`          |
+| Cosmos DB Account    | `azure:cosmosdb:{sub}/{rg}:{region}:databaseAccounts/{name}`   |
+| Redis Cache          | `azure:redis:{sub}/{rg}:{region}:redis/{name}`                 |
 
 ### Monitoring
 
 | Resource Type        | CUID Example                                                          |
 |----------------------|-----------------------------------------------------------------------|
-| Log Analytics WS     | `cuid:azure:loganalytics:{sub}/{rg}:{region}:workspaces/{name}`     |
-| App Insights         | `cuid:azure:monitor:{sub}/{rg}:{region}:components/{name}`          |
-| Event Hub Namespace  | `cuid:azure:eventhub:{sub}/{rg}:{region}:namespaces/{name}`         |
-| Service Bus NS       | `cuid:azure:servicebus:{sub}/{rg}:{region}:namespaces/{name}`       |
+| Log Analytics WS     | `azure:loganalytics:{sub}/{rg}:{region}:workspaces/{name}`     |
+| App Insights         | `azure:monitor:{sub}/{rg}:{region}:components/{name}`          |
+| Event Hub Namespace  | `azure:eventhub:{sub}/{rg}:{region}:namespaces/{name}`         |
+| Service Bus NS       | `azure:servicebus:{sub}/{rg}:{region}:namespaces/{name}`       |
 
 ## Edge Cases
 

@@ -32,7 +32,7 @@ organizations/{org}/{collection}/{resource}
 ## CUID Mapping
 
 ```
-cuid:gcp:{service}:{project}:{location}:{resource-type}/{resource-id}
+gcp:{service}:{project}:{location}:{resource-type}/{resource-id}
 ```
 
 ### Field Mapping
@@ -76,31 +76,31 @@ cuid:gcp:{service}:{project}:{location}:{resource-type}/{resource-id}
 
 ```
 //compute.googleapis.com/projects/my-project/zones/us-central1-a/instances/my-vm
-→ cuid:gcp:compute:my-project:us-central1-a:instance/my-vm
+→ gcp:compute:my-project:us-central1-a:instance/my-vm
 
 //storage.googleapis.com/projects/_/buckets/my-bucket
-→ cuid:gcp:storage:::bucket/my-bucket
+→ gcp:storage:::bucket/my-bucket
 
 //iam.googleapis.com/projects/my-project/serviceAccounts/sa@proj.iam.gserviceaccount.com
-→ cuid:gcp:iam:my-project::service-account/sa@proj.iam.gserviceaccount.com
+→ gcp:iam:my-project::service-account/sa@proj.iam.gserviceaccount.com
 
 projects/my-project/locations/us-central1/functions/my-func
-→ cuid:gcp:functions:my-project:us-central1:function/my-func
+→ gcp:functions:my-project:us-central1:function/my-func
 
 organizations/123456/roles/myCustomRole
-→ cuid:gcp:iam:org/123456::role/myCustomRole
+→ gcp:iam:org/123456::role/myCustomRole
 ```
 
 ### CUID → Native
 
 ```
-cuid:gcp:compute:my-project:us-central1-a:instance/my-vm
+gcp:compute:my-project:us-central1-a:instance/my-vm
 → //compute.googleapis.com/projects/my-project/zones/us-central1-a/instances/my-vm
 
-cuid:gcp:storage:::bucket/my-bucket
+gcp:storage:::bucket/my-bucket
 → //storage.googleapis.com/projects/_/buckets/my-bucket
 
-cuid:gcp:iam:my-project::role/roles/editor
+gcp:iam:my-project::role/roles/editor
 → projects/my-project/roles/editor
 ```
 
@@ -110,69 +110,69 @@ cuid:gcp:iam:my-project::role/roles/editor
 
 | Resource Type       | CUID Example                                                       |
 |---------------------|--------------------------------------------------------------------|
-| VM Instance         | `cuid:gcp:compute:{proj}:{zone}:instance/{name}`                  |
-| Instance Template   | `cuid:gcp:compute:{proj}:global:instance-template/{name}`         |
-| Instance Group      | `cuid:gcp:compute:{proj}:{zone}:instance-group/{name}`            |
-| Disk                | `cuid:gcp:compute:{proj}:{zone}:disk/{name}`                      |
-| Snapshot            | `cuid:gcp:compute:{proj}:global:snapshot/{name}`                  |
-| Image               | `cuid:gcp:compute:{proj}:global:image/{name}`                     |
-| Cloud Function      | `cuid:gcp:functions:{proj}:{region}:function/{name}`              |
-| Cloud Run Service   | `cuid:gcp:run:{proj}:{region}:service/{name}`                     |
-| GKE Cluster         | `cuid:gcp:container:{proj}:{location}:cluster/{name}`             |
-| GKE Node Pool       | `cuid:gcp:container:{proj}:{location}:node-pool/{cluster}/{name}` |
+| VM Instance         | `gcp:compute:{proj}:{zone}:instance/{name}`                  |
+| Instance Template   | `gcp:compute:{proj}:global:instance-template/{name}`         |
+| Instance Group      | `gcp:compute:{proj}:{zone}:instance-group/{name}`            |
+| Disk                | `gcp:compute:{proj}:{zone}:disk/{name}`                      |
+| Snapshot            | `gcp:compute:{proj}:global:snapshot/{name}`                  |
+| Image               | `gcp:compute:{proj}:global:image/{name}`                     |
+| Cloud Function      | `gcp:functions:{proj}:{region}:function/{name}`              |
+| Cloud Run Service   | `gcp:run:{proj}:{region}:service/{name}`                     |
+| GKE Cluster         | `gcp:container:{proj}:{location}:cluster/{name}`             |
+| GKE Node Pool       | `gcp:container:{proj}:{location}:node-pool/{cluster}/{name}` |
 
 ### Storage & Database
 
 | Resource Type       | CUID Example                                                       |
 |---------------------|--------------------------------------------------------------------|
-| GCS Bucket          | `cuid:gcp:storage:::bucket/{name}`                                 |
-| GCS Object          | `cuid:gcp:storage:::object/{bucket}/{path}`                        |
-| Cloud SQL Instance  | `cuid:gcp:sql:{proj}:{region}:instance/{name}`                    |
-| Cloud SQL Database  | `cuid:gcp:sql:{proj}:{region}:database/{instance}/{name}`         |
-| Spanner Instance    | `cuid:gcp:spanner:{proj}::instance/{name}`                        |
-| Spanner Database    | `cuid:gcp:spanner:{proj}::database/{instance}/{name}`             |
-| Bigtable Instance   | `cuid:gcp:bigtable:{proj}::instance/{name}`                       |
-| Bigtable Table      | `cuid:gcp:bigtable:{proj}::table/{instance}/{name}`               |
-| BigQuery Dataset    | `cuid:gcp:bigquery:{proj}:{location}:dataset/{name}`              |
-| BigQuery Table      | `cuid:gcp:bigquery:{proj}:{location}:table/{dataset}/{name}`      |
+| GCS Bucket          | `gcp:storage:::bucket/{name}`                                 |
+| GCS Object          | `gcp:storage:::object/{bucket}/{path}`                        |
+| Cloud SQL Instance  | `gcp:sql:{proj}:{region}:instance/{name}`                    |
+| Cloud SQL Database  | `gcp:sql:{proj}:{region}:database/{instance}/{name}`         |
+| Spanner Instance    | `gcp:spanner:{proj}::instance/{name}`                        |
+| Spanner Database    | `gcp:spanner:{proj}::database/{instance}/{name}`             |
+| Bigtable Instance   | `gcp:bigtable:{proj}::instance/{name}`                       |
+| Bigtable Table      | `gcp:bigtable:{proj}::table/{instance}/{name}`               |
+| BigQuery Dataset    | `gcp:bigquery:{proj}:{location}:dataset/{name}`              |
+| BigQuery Table      | `gcp:bigquery:{proj}:{location}:table/{dataset}/{name}`      |
 
 ### Networking
 
 | Resource Type       | CUID Example                                                       |
 |---------------------|--------------------------------------------------------------------|
-| VPC Network         | `cuid:gcp:compute:{proj}:global:network/{name}`                   |
-| Subnetwork          | `cuid:gcp:compute:{proj}:{region}:subnetwork/{name}`              |
-| Firewall Rule       | `cuid:gcp:compute:{proj}:global:firewall/{name}`                  |
-| External IP         | `cuid:gcp:compute:{proj}:{region}:address/{name}`                 |
-| Cloud DNS Zone      | `cuid:gcp:dns:{proj}::managed-zone/{name}`                        |
-| Load Balancer       | `cuid:gcp:compute:{proj}:global:url-map/{name}`                   |
+| VPC Network         | `gcp:compute:{proj}:global:network/{name}`                   |
+| Subnetwork          | `gcp:compute:{proj}:{region}:subnetwork/{name}`              |
+| Firewall Rule       | `gcp:compute:{proj}:global:firewall/{name}`                  |
+| External IP         | `gcp:compute:{proj}:{region}:address/{name}`                 |
+| Cloud DNS Zone      | `gcp:dns:{proj}::managed-zone/{name}`                        |
+| Load Balancer       | `gcp:compute:{proj}:global:url-map/{name}`                   |
 
 ### Identity & Security
 
 | Resource Type          | CUID Example                                                    |
 |------------------------|-----------------------------------------------------------------|
-| Service Account        | `cuid:gcp:iam:{proj}::service-account/{email}`                 |
-| IAM Role (predefined)  | `cuid:gcp:iam:::role/roles/{name}`                             |
-| IAM Role (project)     | `cuid:gcp:iam:{proj}::role/{name}`                             |
-| IAM Role (org)         | `cuid:gcp:iam:org/{org-id}::role/{name}`                       |
-| KMS Key Ring           | `cuid:gcp:kms:{proj}:{location}:key-ring/{name}`              |
-| KMS Crypto Key         | `cuid:gcp:kms:{proj}:{location}:crypto-key/{ring}/{name}`     |
-| Secret                 | `cuid:gcp:secretmanager:{proj}::secret/{name}`                 |
+| Service Account        | `gcp:iam:{proj}::service-account/{email}`                 |
+| IAM Role (predefined)  | `gcp:iam:::role/roles/{name}`                             |
+| IAM Role (project)     | `gcp:iam:{proj}::role/{name}`                             |
+| IAM Role (org)         | `gcp:iam:org/{org-id}::role/{name}`                       |
+| KMS Key Ring           | `gcp:kms:{proj}:{location}:key-ring/{name}`              |
+| KMS Crypto Key         | `gcp:kms:{proj}:{location}:crypto-key/{ring}/{name}`     |
+| Secret                 | `gcp:secretmanager:{proj}::secret/{name}`                 |
 
 ### Monitoring & Logging
 
 | Resource Type        | CUID Example                                                     |
 |----------------------|------------------------------------------------------------------|
-| Log Sink             | `cuid:gcp:logging:{proj}::sink/{name}`                          |
-| Log Metric           | `cuid:gcp:logging:{proj}::metric/{name}`                        |
-| Alert Policy         | `cuid:gcp:monitoring:{proj}::alert-policy/{id}`                 |
-| Pub/Sub Topic        | `cuid:gcp:pubsub:{proj}::topic/{name}`                          |
-| Pub/Sub Subscription | `cuid:gcp:pubsub:{proj}::subscription/{name}`                   |
+| Log Sink             | `gcp:logging:{proj}::sink/{name}`                          |
+| Log Metric           | `gcp:logging:{proj}::metric/{name}`                        |
+| Alert Policy         | `gcp:monitoring:{proj}::alert-policy/{id}`                 |
+| Pub/Sub Topic        | `gcp:pubsub:{proj}::topic/{name}`                          |
+| Pub/Sub Subscription | `gcp:pubsub:{proj}::subscription/{name}`                   |
 
 ## Edge Cases
 
-1. **Org-level resources** — Use `org/{org-id}` as the account field: `cuid:gcp:iam:org/123456::role/myRole`.
-2. **Folder-level resources** — Use `folder/{folder-id}`: `cuid:gcp:resourcemanager:folder/456::folder/456`.
+1. **Org-level resources** — Use `org/{org-id}` as the account field: `gcp:iam:org/123456::role/myRole`.
+2. **Folder-level resources** — Use `folder/{folder-id}`: `gcp:resourcemanager:folder/456::folder/456`.
 3. **Global buckets** — GCS buckets are globally unique and not project-scoped in their name. Account and region are empty.
 4. **Zone vs region** — The region field contains whatever location granularity the resource uses (zone, region, or `global`).
 5. **Self-links** — GCP sometimes returns full URLs (`https://compute.googleapis.com/...`). Strip the scheme and hostname before mapping.

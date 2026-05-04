@@ -44,7 +44,7 @@ https://dev.azure.com/{org}/{project}/_apis/pipelines/{id}
 ## CUID Mapping
 
 ```
-cuid:azuredevops:{service}:{org}/{project}::{resource-type}/{resource-id}
+azuredevops:{service}:{org}/{project}::{resource-type}/{resource-id}
 ```
 
 ### Field Mapping
@@ -81,44 +81,44 @@ cuid:azuredevops:{service}:{org}/{project}::{resource-type}/{resource-id}
 
 ```
 dev.azure.com/my-org/my-project (project)
-→ cuid:azuredevops:projects:my-org::project/my-project
+→ azuredevops:projects:my-org::project/my-project
 
 dev.azure.com/my-org/my-project/_git/my-repo (repository)
-→ cuid:azuredevops:repos:my-org/my-project::repository/my-repo
+→ azuredevops:repos:my-org/my-project::repository/my-repo
 
 dev.azure.com/my-org/my-project/_build?definitionId=42 (pipeline)
-→ cuid:azuredevops:pipelines:my-org/my-project::pipeline/42
+→ azuredevops:pipelines:my-org/my-project::pipeline/42
 
 dev.azure.com/my-org/my-project/_workitems/edit/1234 (work item)
-→ cuid:azuredevops:boards:my-org/my-project::work-item/1234
+→ azuredevops:boards:my-org/my-project::work-item/1234
 
 dev.azure.com/my-org/my-project/_environments/5 (environment)
-→ cuid:azuredevops:environments:my-org/my-project::environment/5
+→ azuredevops:environments:my-org/my-project::environment/5
 
 dev.azure.com/my-org/my-project/_artifacts/feed/my-feed (artifact feed)
-→ cuid:azuredevops:artifacts:my-org/my-project::feed/my-feed
+→ azuredevops:artifacts:my-org/my-project::feed/my-feed
 
 my-org (organization)
-→ cuid:azuredevops:orgs:my-org::org/my-org
+→ azuredevops:orgs:my-org::org/my-org
 ```
 
 ### Azure DevOps Server (On-Premises)
 
 ```
 tfs.company.com/my-collection/my-project/_git/my-repo
-→ cuid:azuredevops:repos:my-collection/my-project:tfs.company.com:repository/my-repo
+→ azuredevops:repos:my-collection/my-project:tfs.company.com:repository/my-repo
 ```
 
 ### CUID → Native
 
 ```
-cuid:azuredevops:repos:my-org/my-project::repository/my-repo
+azuredevops:repos:my-org/my-project::repository/my-repo
 → https://dev.azure.com/my-org/my-project/_git/my-repo
 
-cuid:azuredevops:pipelines:my-org/my-project::pipeline/42
+azuredevops:pipelines:my-org/my-project::pipeline/42
 → https://dev.azure.com/my-org/my-project/_build?definitionId=42
 
-cuid:azuredevops:boards:my-org/my-project::work-item/1234
+azuredevops:boards:my-org/my-project::work-item/1234
 → https://dev.azure.com/my-org/my-project/_workitems/edit/1234
 ```
 
@@ -128,65 +128,65 @@ cuid:azuredevops:boards:my-org/my-project::work-item/1234
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Repository          | `cuid:azuredevops:repos:{org}/{proj}::repository/{name}`               |
-| Branch              | `cuid:azuredevops:repos:{org}/{proj}::branch/{repo}/{branch}`          |
-| Tag                 | `cuid:azuredevops:repos:{org}/{proj}::tag/{repo}/{tag}`                |
-| Commit              | `cuid:azuredevops:repos:{org}/{proj}::commit/{repo}/{sha}`             |
-| Pull Request        | `cuid:azuredevops:repos:{org}/{proj}::pull-request/{repo}/{id}`        |
-| PR Thread           | `cuid:azuredevops:repos:{org}/{proj}::thread/{repo}/{pr-id}/{id}`      |
+| Repository          | `azuredevops:repos:{org}/{proj}::repository/{name}`               |
+| Branch              | `azuredevops:repos:{org}/{proj}::branch/{repo}/{branch}`          |
+| Tag                 | `azuredevops:repos:{org}/{proj}::tag/{repo}/{tag}`                |
+| Commit              | `azuredevops:repos:{org}/{proj}::commit/{repo}/{sha}`             |
+| Pull Request        | `azuredevops:repos:{org}/{proj}::pull-request/{repo}/{id}`        |
+| PR Thread           | `azuredevops:repos:{org}/{proj}::thread/{repo}/{pr-id}/{id}`      |
 
 ### Pipelines & CI/CD
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Pipeline (def)      | `cuid:azuredevops:pipelines:{org}/{proj}::pipeline/{id}`               |
-| Pipeline Run        | `cuid:azuredevops:pipelines:{org}/{proj}::run/{pipeline-id}/{run-id}`  |
-| Release Definition  | `cuid:azuredevops:releases:{org}/{proj}::release-def/{id}`             |
-| Release             | `cuid:azuredevops:releases:{org}/{proj}::release/{def-id}/{id}`        |
-| Environment         | `cuid:azuredevops:environments:{org}/{proj}::environment/{id}`         |
-| Variable Group      | `cuid:azuredevops:pipelines:{org}/{proj}::variable-group/{id}`         |
-| Service Connection  | `cuid:azuredevops:connections:{org}/{proj}::service-connection/{id}`   |
+| Pipeline (def)      | `azuredevops:pipelines:{org}/{proj}::pipeline/{id}`               |
+| Pipeline Run        | `azuredevops:pipelines:{org}/{proj}::run/{pipeline-id}/{run-id}`  |
+| Release Definition  | `azuredevops:releases:{org}/{proj}::release-def/{id}`             |
+| Release             | `azuredevops:releases:{org}/{proj}::release/{def-id}/{id}`        |
+| Environment         | `azuredevops:environments:{org}/{proj}::environment/{id}`         |
+| Variable Group      | `azuredevops:pipelines:{org}/{proj}::variable-group/{id}`         |
+| Service Connection  | `azuredevops:connections:{org}/{proj}::service-connection/{id}`   |
 
 ### Work Tracking
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Work Item           | `cuid:azuredevops:boards:{org}/{proj}::work-item/{id}`                 |
-| Board               | `cuid:azuredevops:boards:{org}/{proj}::board/{name}`                   |
-| Sprint / Iteration  | `cuid:azuredevops:boards:{org}/{proj}::iteration/{path}`               |
-| Area                | `cuid:azuredevops:boards:{org}/{proj}::area/{path}`                    |
-| Query               | `cuid:azuredevops:boards:{org}/{proj}::query/{id}`                     |
+| Work Item           | `azuredevops:boards:{org}/{proj}::work-item/{id}`                 |
+| Board               | `azuredevops:boards:{org}/{proj}::board/{name}`                   |
+| Sprint / Iteration  | `azuredevops:boards:{org}/{proj}::iteration/{path}`               |
+| Area                | `azuredevops:boards:{org}/{proj}::area/{path}`                    |
+| Query               | `azuredevops:boards:{org}/{proj}::query/{id}`                     |
 
 ### Artifacts
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Feed                | `cuid:azuredevops:artifacts:{org}/{proj}::feed/{name}`                 |
-| Package             | `cuid:azuredevops:artifacts:{org}/{proj}::package/{feed}/{name}`       |
-| Package Version     | `cuid:azuredevops:artifacts:{org}/{proj}::version/{feed}/{pkg}/{ver}`  |
+| Feed                | `azuredevops:artifacts:{org}/{proj}::feed/{name}`                 |
+| Package             | `azuredevops:artifacts:{org}/{proj}::package/{feed}/{name}`       |
+| Package Version     | `azuredevops:artifacts:{org}/{proj}::version/{feed}/{pkg}/{ver}`  |
 
 ### Organization
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Organization        | `cuid:azuredevops:orgs:{org}::org/{org}`                               |
-| Project             | `cuid:azuredevops:projects:{org}::project/{name}`                      |
-| Team                | `cuid:azuredevops:projects:{org}/{proj}::team/{name}`                  |
-| Wiki                | `cuid:azuredevops:wiki:{org}/{proj}::wiki/{name}`                      |
+| Organization        | `azuredevops:orgs:{org}::org/{org}`                               |
+| Project             | `azuredevops:projects:{org}::project/{name}`                      |
+| Team                | `azuredevops:projects:{org}/{proj}::team/{name}`                  |
+| Wiki                | `azuredevops:wiki:{org}/{proj}::wiki/{name}`                      |
 
 ### Test
 
 | Resource Type       | CUID Example                                                            |
 |---------------------|-------------------------------------------------------------------------|
-| Test Plan           | `cuid:azuredevops:test:{org}/{proj}::test-plan/{id}`                   |
-| Test Suite          | `cuid:azuredevops:test:{org}/{proj}::test-suite/{plan-id}/{id}`        |
-| Test Case           | `cuid:azuredevops:test:{org}/{proj}::test-case/{id}`                   |
+| Test Plan           | `azuredevops:test:{org}/{proj}::test-plan/{id}`                   |
+| Test Suite          | `azuredevops:test:{org}/{proj}::test-suite/{plan-id}/{id}`        |
+| Test Case           | `azuredevops:test:{org}/{proj}::test-case/{id}`                   |
 
 ## Edge Cases
 
 1. **Work item IDs are org-scoped** — Work item IDs are unique across the entire organization, not per project. The project in the CUID indicates where the work item is displayed, but the ID is globally unique within the org.
 2. **Azure DevOps Server** — For on-premises instances, the region field contains the hostname. The account field uses `{collection}/{project}` instead of `{org}/{project}`.
 3. **Legacy URLs** — `{org}.visualstudio.com` URLs map to the same CUIDs as `dev.azure.com/{org}`. The CUID is canonical regardless of URL format.
-4. **TFVC repositories** — Azure DevOps supports TFVC (centralized VCS) alongside Git. TFVC repos use `$/project` paths. CUID: `cuid:azuredevops:repos:{org}/{proj}::tfvc-path/{path}`.
+4. **TFVC repositories** — Azure DevOps supports TFVC (centralized VCS) alongside Git. TFVC repos use `$/project` paths. CUID: `azuredevops:repos:{org}/{proj}::tfvc-path/{path}`.
 5. **Project renames** — Project names can change. CUIDs track the current name. GUIDs are available via the API but not used in CUIDs for readability.
 6. **Cross-project references** — Work items can reference items in other projects. Each work item's CUID uses its own project context.
